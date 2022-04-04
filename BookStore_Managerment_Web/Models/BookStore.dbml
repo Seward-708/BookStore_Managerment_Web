@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BookStore_Web" Class="BookStoreDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=BookStore_Web;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="BookStore_WebConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Author" Member="Authors">
+    <Type Name="Author">
+      <Column Name="Author_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Author_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Author_State" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Author_Book_Writter" Member="Book_Writters" ThisKey="Author_ID" OtherKey="Author_ID" Type="Book_Writter" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Book_Writter" Member="Book_Writters">
+    <Type Name="Book_Writter">
+      <Column Name="Author_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Product_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Year_Reprint" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Author_Book_Writter" Member="Author" ThisKey="Author_ID" OtherKey="Author_ID" Type="Author" IsForeignKey="true" />
+      <Association Name="Product_Book_Writter" Member="Product" ThisKey="Product_ID" OtherKey="Product_ID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cart" Member="Carts">
+    <Type Name="Cart">
+      <Column Name="Cart_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Cart_DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Cart_State" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Cart_Deliveryday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Cart_Address" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Users_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Cart_Cart_Detail" Member="Cart_Details" ThisKey="Cart_ID" OtherKey="Cart_ID" Type="Cart_Detail" />
+      <Association Name="User_Cart" Member="User" ThisKey="Users_ID" OtherKey="Users_ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cart_Detail" Member="Cart_Details">
+    <Type Name="Cart_Detail">
+      <Column Name="Cart_Detail_Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Cart_Detail_Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cart_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Product_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Cart_Cart_Detail" Member="Cart" ThisKey="Cart_ID" OtherKey="Cart_ID" Type="Cart" IsForeignKey="true" />
+      <Association Name="Product_Cart_Detail" Member="Product" ThisKey="Product_ID" OtherKey="Product_ID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Category" Member="Categories">
+    <Type Name="Category">
+      <Column Name="Category_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Category_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Category_State" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Category_Product" Member="Products" ThisKey="Category_ID" OtherKey="Category_ID" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Comment" Member="Comments">
+    <Type Name="Comment">
+      <Column Name="Comment_Infor" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Comment_DateCreate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Users_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Product_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Product_Comment" Member="Product" ThisKey="Product_ID" OtherKey="Product_ID" Type="Product" IsForeignKey="true" />
+      <Association Name="User_Comment" Member="User" ThisKey="Users_ID" OtherKey="Users_ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="Product_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Product_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Product_SellPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Product_Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Product_Image" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Product_isBook" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Product_State" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Product_Weight" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Product_Infor" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Category_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Unit_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Providers_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Publisher_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Product_Book_Writter" Member="Book_Writters" ThisKey="Product_ID" OtherKey="Product_ID" Type="Book_Writter" />
+      <Association Name="Product_Cart_Detail" Member="Cart_Details" ThisKey="Product_ID" OtherKey="Product_ID" Type="Cart_Detail" />
+      <Association Name="Product_Comment" Member="Comments" ThisKey="Product_ID" OtherKey="Product_ID" Type="Comment" />
+      <Association Name="Category_Product" Member="Category" ThisKey="Category_ID" OtherKey="Category_ID" Type="Category" IsForeignKey="true" />
+      <Association Name="Provider_Product" Member="Provider" ThisKey="Providers_ID" OtherKey="Providers_ID" Type="Provider" IsForeignKey="true" />
+      <Association Name="Publisher_Product" Member="Publisher" ThisKey="Publisher_ID" OtherKey="Publisher_ID" Type="Publisher" IsForeignKey="true" />
+      <Association Name="Unit_Product" Member="Unit" ThisKey="Unit_ID" OtherKey="Unit_ID" Type="Unit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Providers" Member="Providers">
+    <Type Name="Provider">
+      <Column Name="Providers_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Providers_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Provider_Product" Member="Products" ThisKey="Providers_ID" OtherKey="Providers_ID" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Publisher" Member="Publishers">
+    <Type Name="Publisher">
+      <Column Name="Publisher_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Publisher_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Publisher_Product" Member="Products" ThisKey="Publisher_ID" OtherKey="Publisher_ID" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Unit" Member="Units">
+    <Type Name="Unit">
+      <Column Name="Unit_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Unit_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Unit_State" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Unit_Product" Member="Products" ThisKey="Unit_ID" OtherKey="Unit_ID" Type="Product" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="User">
+      <Column Name="Users_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Users_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="User_Phone" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="User_Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="User_Sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="User_Birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="User_State" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="User_AccountName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="User_AccountPassword" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="User_Admin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="User_Cart" Member="Carts" ThisKey="Users_ID" OtherKey="Users_ID" Type="Cart" />
+      <Association Name="User_Comment" Member="Comments" ThisKey="Users_ID" OtherKey="Users_ID" Type="Comment" />
+    </Type>
+  </Table>
+</Database>

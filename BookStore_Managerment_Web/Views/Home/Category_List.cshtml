@@ -1,0 +1,30 @@
+﻿@using BookStore_Managerment_Web.Models;
+@model List<Category>
+
+<div class="left-sidebar">
+    <h2>Danh mục</h2>
+    <div class="panel-group category-products" id="accordian">
+        <!--category-productsr-->
+
+
+        @{
+            foreach (var item in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                        <h4 class="panel-title"><a href="@Url.Action("Category_search","Home",new {@category_id = item.Category_ID })">@item.Category_Name</a></h4>
+
+                    </div>
+                </div>
+            }
+        }
+
+
+
+
+    </div><!--/category-products-->
+
+
+
+</div>

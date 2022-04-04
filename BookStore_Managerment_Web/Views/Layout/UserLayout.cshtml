@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <link rel="icon" href="~/Content/images/favicon.png" type="image/gif" />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <link href="~/Content/CSS/style.css" rel="stylesheet" />
+    <link href="~/Content/CSS/responsive.css" rel="stylesheet" />
+    <link href="~/Content/CSS/ion.rangeSlider.min.css" rel="stylesheet" />
+    <link href="~/Content/CSS/font-awesome.min.css" rel="stylesheet" />
+
+
+    <!--css-->
+    <link href="~/Content/CSS/css/animate.css" rel="stylesheet" />
+    <link href="~/Content/CSS/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/CSS/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/CSS/css/main.css" rel="stylesheet" />
+    <link href="~/Content/CSS/css/price-range.css" rel="stylesheet" />
+    <link href="~/Content/CSS/css/prettyPhoto.css" rel="stylesheet" />
+    <link href="~/Content/CSS/css/responsive.css" rel="stylesheet" />
+
+</head>
+<body>
+    <header id="header">
+
+        <div class="header-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="logo pull-left">
+                            <a href="@Url.Action("Index","Home")">
+                                <span class="navbar-brand">HST.COM</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="search_box">
+                            <input type="text" placeholder="Nhập sản phẩm cần tìm kiếm ..." />
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="shop-menu pull-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="@Url.Action("DangNhap","User") " class="elements"><i class="fa fa-user"></i> Account</a></li>
+                                <li><a href="@Url.Action("GioHang","Cart")"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+
+    <main>
+        @RenderBody()
+    </main>
+
+
+    <section class="info_section layout_padding2">
+        <div class="container">
+            <div class="row">
+
+
+
+                <div class="col-md-6 col-lg-3 info-col">
+                    <div class="info_contact">
+                        <h4>
+                            Dịch vụ
+                        </h4>
+                        <div class="contact_link_box">
+                            <a href="">
+
+                                <span>
+                                    Điều khoản sử dụng
+                                </span>
+                            </a>
+                            <a href="">
+
+                                <span>
+                                    Chính sách bảo mật
+                                </span>
+                            </a>
+                            <a href="">
+
+                                <span>
+                                    Giới thiệu HST
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 info-col">
+                    <div class="info_contact">
+                        <h4>
+                            Hỗ trợ
+                        </h4>
+                        <div class="contact_link_box">
+                            <a href="">
+
+                                <span>
+                                    Chính sách đổi trả - hoàn tiền
+                                </span>
+                            </a>
+                            <a href="">
+
+                                <span>
+                                    Chính sách khách sĩ
+                                </span>
+                            </a>
+                            <a href="">
+
+                                <span>
+                                    Phương thức vận chuyển
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 info-col">
+                    <div class="info_contact">
+                        <h4>
+                            Tài khoản của tôi
+                        </h4>
+                        <div class="contact_link_box">
+                            <a href="">
+
+                                <span>
+                                    Thay đổi địa chỉ khách hàng
+                                </span>
+                            </a>
+                            <a href="">
+
+                                <span>
+                                    Chi tiết tài khoản
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 info-col">
+                    <div class="info_detail">
+                        <h4>
+                            Liên hệ
+                        </h4>
+                        <span>
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            Địa chỉ:
+                        </span>
+                        <span>
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            Email:
+                        </span>
+                        <span>
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            SĐT:
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- end info section -->
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+
+    <script src="~/Content/javascript/js/main.js"></script>
+    <script src="~/Content/javascript/js/jquery.scrollUp.min.js"></script>
+    <script src="~/Content/javascript/js/jquery.prettyPhoto.js"></script>
+    <script src="~/Content/javascript/js/jquery.js"></script>
+    <script src="~/Content/javascript/js/html5shiv.js"></script>
+    <script src="~/Content/javascript/js/gmaps.js"></script>
+    <script src="~/Content/javascript/js/contact.js"></script>
+    <script src="~/Content/javascript/js/bootstrap.min.js"></script>
+</body>
+</html>

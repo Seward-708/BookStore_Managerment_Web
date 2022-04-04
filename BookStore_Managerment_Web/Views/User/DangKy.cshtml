@@ -1,0 +1,175 @@
+﻿@model BookStore_Managerment_Web.Models.User
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="row">
+        <div class=" col-md-2 col-sm-1 " >
+            <h2 style="font-weight:400;text-transform:uppercase;margin-left:150px;width:100%;"> Đăng ký ngay</h2>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(model => model.Users_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.Users_Name, new { htmlAttributes = new { @class = "form-control" } })
+            <span id="UserName_Error"></span>
+            @Html.ValidationMessageFor(model => model.Users_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" >
+        @Html.LabelFor(model => model.User_Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.User_Phone, new { htmlAttributes = new { @class = "form-control" } })
+            <span id="User_Phone_Error"></span>
+            @Html.ValidationMessageFor(model => model.User_Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.User_Email, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.User_Email, new { htmlAttributes = new { @class = "form-control" } })
+            <span id="User_Email_Error"></span>
+            @Html.ValidationMessageFor(model => model.User_Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" >
+        @Html.LabelFor(model => model.User_Sex, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.User_Sex, new { htmlAttributes = new { @class = "form-control" } })
+
+            @Html.ValidationMessageFor(model => model.User_Sex, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" >
+        @Html.LabelFor(model => model.User_Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.User_Birthday, new { htmlAttributes = new { @class = "form-control" } })
+
+            @Html.ValidationMessageFor(model => model.User_Birthday, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" >
+        @Html.LabelFor(model => model.User_AccountName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.User_AccountName, new { htmlAttributes = new { @class = "form-control" } })
+            <span id="User_AccountName_Error"></span>
+            @Html.ValidationMessageFor(model => model.User_AccountName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" >
+        @Html.LabelFor(model => model.User_AccountPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.User_AccountPassword, new { htmlAttributes = new { @class = "form-control" } })
+            <span id="User_AccountPassword_Error"></span>
+            @Html.ValidationMessageFor(model => model.User_AccountPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" >
+        <label class="control-label col-md-2" for="MatKhauXacNhan">
+            Mật khẩu xác nhận:
+        </label>
+        <div class="col-md-5">
+            <input class="form-control text-box single-line input-validation-error"
+                   data-val="true" data-val-required="Phải nhập mật khẩu xác nhận!"
+                   id="User_AccountPassword_authen" name="User_AccountPassword_authen" type="password" value="" aria-describedby="MatKhauXacNhan-error" aria-invalid="true">
+
+            @ViewData["NhapMKXN"]
+            @ViewData["MatKhauGiongNhau"]
+            <span id="User_AccountPassword_authen_Error"></span>
+        </div>
+
+    </div>
+
+
+
+        <div class="form-group" >
+            <div class=" col-md-offset-2">
+                <input type="submit" id="btnSubmit" value="Đăng ký" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div class="form-group" >
+            <div class=" col-md-offset-2">
+                @Html.ActionLink("Trở lại", "Index", "Home")
+            </div>
+        </div>
+</div>
+}
+
+<script src="~/Content/javascript/js/jquery.js"></script>
+<script type="text/javascript">
+    $('#btnSubmit').click(function () {
+        if ($('#Users_Name').val() == "") {
+            $('#UserName_Error').text("Họ và tên không được để trống !");
+            return false;
+        } else {
+            $('#UserName_Error').text("");
+        }
+
+        if ($('#User_Phone').val() == "") {
+            $('#User_Phone_Error').text("Số điện thoại không được để trống !");
+            return false;
+        } else {
+            $('#User_Phone_Error').text("");
+        }
+
+        if ($('#User_Email').val() == "") {
+            $('#User_Email_Error').text("Email không được để trống !");
+            return false;
+        } else {
+            $('#User_Email_Error').text("");
+        }
+
+        if ($('#User_AccountName').val() == "") {
+            $('#User_AccountName_Error').text("Tài khoản không được để trống !");
+            return false;
+        } else {
+            $('#User_AccountName_Error').text("");
+        }
+
+        if ($('#User_AccountPassword').val() == "") {
+            $('#User_AccountPassword_Error').text("Mật khẩu không được để trống !");
+            return false;
+        } else {
+            $('#User_AccountPassword_Error').text("");
+        }
+        if ($('#User_AccountPassword_authen').val() == "") {
+            $('#User_AccountPassword_authen_Error').text("Mật khẩu xác nhận không được để trống !");
+            return false;
+        } else {
+            $('#User_AccountPassword_authen_Error').text("");
+            if ($('#User_AccountPassword_authen').val() != $('#User_AccountPassword').val()) {
+                $('#User_AccountPassword_authen_Error').text("Mật khẩu xác nhận phải giống mật khẩu");
+                return false;
+            }
+            else {
+                $('#User_AccountPassword_authen_Error').text("");
+            }
+        }
+
+    });
+</script>
+
+

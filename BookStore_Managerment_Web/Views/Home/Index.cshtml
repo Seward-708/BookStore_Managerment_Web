@@ -1,0 +1,182 @@
+﻿
+@{
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<section id="slider">
+    <!--slider-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#slider-carousel" data-slide-to="1"></li>
+                        <li data-target="#slider-carousel" data-slide-to="2"></li>
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <div class="col-sm-12">
+                                <img src="~/Content/images/home/1.jpg" style="width:100%;" alt="">
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="col-sm-12">
+                                <img src="~/Content/images/home/2.jpg" style="width:100%;" alt="">
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="col-sm-12">
+                                <img src="~/Content/images/home/3.jpg" style="width:100%;" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section><!--/slider-->
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+               @Html.Action("Category_List","Home")
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <!--features_items-->
+                    <h2 class="title text-center">DANH MỤC NỔI BẬT</h2>
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="~/Content/images/home/product1.png" alt="" />
+                                    <p>Foreign Books</p>
+                                </div>
+                                <div class="product-overlay">
+                                    <div class="overlay-content">
+
+                                        <p>Foreign Books</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="~/Content/images/home/product2.png" alt="" />
+                                    <p>Kinh tế</p>
+                                </div>
+                                <div class="product-overlay">
+                                    <div class="overlay-content">
+                                        <p>Kinh tế</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="~/Content/images/home/product3.png" alt="" />
+                                    <p>Sách giáo khoa</p>
+
+                                </div>
+                                <div class="product-overlay">
+                                    <div class="overlay-content">
+                                        <p>Sách giáo khoa</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="~/Content/images/home/product4.png" alt="" />
+                                    <p>Thiếu nhi</p>
+                                </div>
+                                <div class="product-overlay">
+                                    <div class="overlay-content">
+                                        <p>Thiếu nhi</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="~/Content/images/home/product5.png" alt="" />
+                                    <p>Văn học</p>
+                                </div>
+                                <div class="product-overlay">
+                                    <div class="overlay-content">
+                                        <p>Văn học</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="~/Content/images/home/product6.png" alt="" />
+                                    <p>Văn phòng phẩm</p>
+                                </div>
+                                <div class="product-overlay">
+                                    <div class="overlay-content">
+                                        <p>Văn phòng phẩm</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                @Html.Action("Calculator_Partial", "Home")
+
+                @Html.Action("LightNovel_Partial", "Home")
+
+
+                @Html.Action("Toy_Partial", "Home")
+
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+

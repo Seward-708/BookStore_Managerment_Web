@@ -1,0 +1,39 @@
+﻿@using BookStore_Managerment_Web.Models
+@model List<Product>
+
+
+<div class="category-tab">
+    <!--Calculator-->
+    <div class="col-sm-12 tab">
+        <ul class="nav nav-tabs ">
+            <li class="active"><a href="#" data-toggle="tab">Máy tính khoa học</a></li>
+            <li><div class="more"><a href="#">Xem thêm</a></div></li>
+        </ul>
+
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade active in" id="#">
+            @{
+                foreach (var item in Model)
+                {
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="@item.Product_Image" alt="" />
+                                    <h2>@item.Product_SellPrice đ</h2>
+                                    <p>@item.Product_Name</p>
+                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+
+
+    </div>
+</div><!--Calculator-->

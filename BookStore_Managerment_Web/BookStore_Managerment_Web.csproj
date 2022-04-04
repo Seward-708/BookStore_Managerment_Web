@@ -48,6 +48,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -55,6 +56,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -120,9 +122,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookStore.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookStore.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GioHang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,12 +141,61 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CSS\bootstrap.css" />
+    <Content Include="Content\CSS\css\animate.css" />
+    <Content Include="Content\CSS\css\bootstrap.min.css" />
+    <Content Include="Content\CSS\css\font-awesome.min.css" />
+    <Content Include="Content\CSS\css\main.css" />
+    <Content Include="Content\CSS\css\prettyPhoto.css" />
+    <Content Include="Content\CSS\css\price-range.css" />
+    <Content Include="Content\CSS\css\responsive.css" />
+    <Content Include="Content\CSS\font-awesome.min.css" />
+    <Content Include="Content\CSS\ion.rangeSlider.min.css" />
+    <Content Include="Content\CSS\responsive.css" />
+    <Content Include="Content\CSS\style.css" />
+    <Content Include="Content\images\home\1.jpg" />
+    <Content Include="Content\images\home\2.jpg" />
+    <Content Include="Content\images\home\3.jpg" />
+    <Content Include="Content\images\home\bg_border.png" />
+    <Content Include="Content\images\home\product1.png" />
+    <Content Include="Content\images\home\product2.png" />
+    <Content Include="Content\images\home\product3.png" />
+    <Content Include="Content\images\home\product4.png" />
+    <Content Include="Content\images\home\product5.png" />
+    <Content Include="Content\images\home\product6.png" />
+    <Content Include="Content\images\home\searchicon.png" />
+    <Content Include="Content\javascript\bootstrap.js" />
+    <Content Include="Content\javascript\custom.js" />
+    <Content Include="Content\javascript\ion.rangeSlider.min.js" />
+    <Content Include="Content\javascript\jquery-3.4.1.min.js" />
+    <Content Include="Content\javascript\js\bootstrap.min.js" />
+    <Content Include="Content\javascript\js\contact.js" />
+    <Content Include="Content\javascript\js\gmaps.js" />
+    <Content Include="Content\javascript\js\html5shiv.js" />
+    <Content Include="Content\javascript\js\jquery.js" />
+    <Content Include="Content\javascript\js\jquery.prettyPhoto.js" />
+    <Content Include="Content\javascript\js\jquery.scrollUp.min.js" />
+    <Content Include="Content\javascript\js\main.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\CSS\style.css.map" />
+    <Content Include="Content\CSS\style.scss" />
+    <Content Include="Content\images\home\casio.webp" />
+    <Content Include="Models\BookStore.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>BookStore.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Models\BookStore.dbml.layout">
+      <DependentUpon>BookStore.dbml</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -156,11 +216,22 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Layout\UserLayout.cshtml" />
+    <Content Include="Views\User\DangKy.cshtml" />
+    <Content Include="Views\User\DangNhap.cshtml" />
+    <Content Include="Views\Home\Calculator_Partial.cshtml" />
+    <Content Include="Views\Home\LightNovel_Partial.cshtml" />
+    <Content Include="Views\Home\Toy_Partial.cshtml" />
+    <Content Include="Views\Cart\GioHang.cshtml" />
+    <Content Include="Views\Home\Category_List.cshtml" />
+    <Content Include="Views\Home\Category_search.cshtml" />
+    <Content Include="Views\Home\Product_Detail.cshtml" />
+    <Content Include="Views\Home\Product_Detail_Recommend_Partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -174,6 +245,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

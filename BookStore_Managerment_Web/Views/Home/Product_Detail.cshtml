@@ -1,0 +1,106 @@
+﻿@using BookStore_Managerment_Web.Models;
+@model Product
+
+
+@{
+    ViewBag.Title = "Product_Detail";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+<div class="container">
+    <div class="product-details">
+        <div class="col-sm-5">
+            <div class="view-product">
+                <img src="@Model.Product_Image" alt="" />
+            </div>
+
+        </div>
+        <div class="col-sm-7">
+            <div class="product-information">
+                <h2>@Model.Product_Name</h2>
+                <span>
+                    <span>@Model.Product_SellPrice</span>
+                    <label>Số lượng:</label>
+                    <input type="text" value="1" name="txtSoLg" />
+                    <button type="button" class="btn btn-fefault cart">
+                        <a href="@Url.Action("ThemGioHang","Cart",new {@id = Model.Product_ID,@strURL = Request.Url.ToString() })">
+                            <i class="fa fa-shopping-cart"></i>
+                            Mua
+                        </a>
+
+                    </button>
+                </span>
+                @{
+                    if (Model.Product_Quantity > 0)
+                    {
+                        <p><b>Trạng thái: </b> Còn hàng</p>
+                    }
+                    else
+                    {
+                        <p><b>Trạng thái: </b>Hết hàng</p>
+                    }
+
+                    <p><b>Tình trạng: </b> Mới</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="category-tab shop-details-tab">
+        <div class="col-sm-12">
+            <ul class="nav nav-tabs product_tab">
+                <li class="active"><a href="#details" data-toggle="tab">Mô tả sản phẩm</a></li>
+                <li ><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade" id="details">
+                <h3><b>Thông tin sản phẩm</b></h3>
+                <p><b>Tên sản phẩm: </b>@Model.Product_Name</p>
+                <p><b>Trọng lượng (gr): </b>@Model.Product_Weight</p>
+                <p><b>Danh mục: </b>@Model.Category.Category_Name</p>
+                <p><b>Đơn vị: </b>@Model.Unit.Unit_Name</p>
+                <p><b>Nhà cung cấp: </b>@Model.Provider.Providers_Name</p>
+                <p><b>Nhà xuất bản: </b>@Model.Publisher.Publisher_Name</p>
+                <p><b>Mô tả: </b>@Model.Product_Infor</p>
+            </div>
+
+            <div class="tab-pane fade active in" id="reviews">
+                <div class="col-sm-12">
+                    <ul>
+                        <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
+                        <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+                    </ul>
+                    <p><b>Đánh giá của bạn</b></p>
+
+                    <form action="#">
+                        <textarea name=""></textarea>
+                        <button type="button" class="btn btn-default pull-right">
+                            Đánh giá
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="recommended_items">
+        <h2 class="title text-center">Sản phẩm tương tự</h2>
+
+        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+
+                @Html.Action("Product_Detail_Recommend_Partial","Home")
+            </div>
+            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+
+</div>
+
