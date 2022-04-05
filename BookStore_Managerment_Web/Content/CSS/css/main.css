@@ -2003,22 +2003,34 @@ margin-right: 10px;
 	color:#fe980f;
 }
 
-.search_box input {
-  background: #F0F0E9;
-  border: medium none;
-  color: #B2B2B2;
-  font-family: 'roboto';
-  font-size: 1.6rem;
-
-  outline: medium none;
-  padding-left: 10px;
-  background-image: url(../images/home/searchicon.png);
-  background-repeat: no-repeat;
-  background-position: 98%;
-  line-height: 50px;
-  width:100%;
-  padding-top: 0;
-  padding-bottom: 0;
-  color: #333;
-  font-weight: 400;
+search_box input {
+	background: #F0F0E9;
+	border: medium none;
+	color: #B2B2B2;
+	font-family: 'roboto';
+	font-size: 1.6rem;
+	outline: medium none;
+	padding-left: 10px;
+	background-image: url(../images/home/searchicon.png);
+	background-repeat: no-repeat;
+	background-position: 98%;
+	line-height: 50px;
+	padding-top: 0;
+	padding-bottom: 0;
+	color: #333;
+	font-weight: 400;
 }
+
+.search_box {
+	display: flex;
+	flex-direction: row;
+}
+
+	.search_box .submitbtn {
+		background-image: none;
+		flex: 1;
+	}
+
+	.search_box .txtText{
+		flex:3;
+	}

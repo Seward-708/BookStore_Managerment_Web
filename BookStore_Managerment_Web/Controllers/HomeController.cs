@@ -24,7 +24,7 @@ namespace BookStore_Managerment_Web.Controllers
         public PartialViewResult category()
         {
             List<Category> lst = new List<Category>();
-            foreach (var item in db.Categories)
+            foreach (var item in db.Categories.Where(p=>p.Category_State == true))
             {
                 if (db.Products.Where(p => p.Category_ID == item.Category_ID).Count() != 0)
                     lst.Add(item);
@@ -35,7 +35,7 @@ namespace BookStore_Managerment_Web.Controllers
         public PartialViewResult category_items(int id)
         {
             List<Product> lst = new List<Product>();
-            foreach (var item in db.Products)
+            foreach (var item in db.Products.Where(p=>p.Product_State == true))
             {
                 if (item.Category_ID == id)
                     lst.Add(item);
@@ -61,6 +61,8 @@ namespace BookStore_Managerment_Web.Controllers
             return View(db.Products.Where(p => (p.Category.Category_Name == category_name) && (p.Product_State == true)).ToList());
         }
 
+
+
         public ActionResult Product_Detail(int product_id)
         {
             return View(db.Products.Where(p => (p.Product_ID == product_id) && (p.Product_State == true)).SingleOrDefault());
@@ -74,6 +76,17 @@ namespace BookStore_Managerment_Web.Controllers
             return PartialView(db.Products.Where(p => (p.Category_ID == category_id) && (p.Product_State == true)).ToList());
         }
 
+
+        //[HttpGet]
+        //public ActionResult Search()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public ActionResult Search(FormCollection collection)
+        //{
+
+        //}
 
 
     }

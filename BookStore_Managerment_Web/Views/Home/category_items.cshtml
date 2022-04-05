@@ -11,7 +11,7 @@
                             <img src="@item.Product_Image" alt="" />
                             <h2>@item.Product_SellPrice đ</h2>
                             <p>@item.Product_Name</p>
-                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm giỏ hàng</a>
+                            <a href="@Url.Action("Product_Detail","Home",new {@product_id = item.Product_ID })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
                         </div>
 
                     </div>
