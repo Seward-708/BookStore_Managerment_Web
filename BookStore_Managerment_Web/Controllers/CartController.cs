@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using BookStore_Managerment_Web.Models;
 
 namespace BookStore_Managerment_Web.Controllers
@@ -41,12 +42,8 @@ namespace BookStore_Managerment_Web.Controllers
                     sanpham.Cart_Detail_Quantity++;
                     return Redirect(strURL);
                 }
-                else
-                {
-                  //  MessageBox.Show("Không có đủ sách đẻ bán"); alert ko con du sach
-                    return RedirectToAction("Index", "Home");
-                }
             }
+            return Redirect(strURL);
         }
 
         private int TongSoLuong()
@@ -121,7 +118,11 @@ namespace BookStore_Managerment_Web.Controllers
                 sanpham.Cart_Detail_Quantity = int.Parse(collection["txtSoLg"].ToString().Trim());
                 if (sanpham.Cart_Detail_Quantity > sach.Product_Quantity)
                 {
-                   // MessageBox.Show("Không còn đủ sách để bán"); alert ko còn đủ sách
+                    //MessageBox.Show("Không còn đủ sách để bán");
+                    sanpham.Cart_Detail_Quantity = 1;
+                }
+                else if(sanpham.Cart_Detail_Quantity <=0)
+                    {
                     sanpham.Cart_Detail_Quantity = 1;
                 }
 
@@ -195,6 +196,33 @@ namespace BookStore_Managerment_Web.Controllers
         public ActionResult XacNhanDonHang()
         {
             return View();
+        }
+
+        public ActionResult TangSoLuong(int id)
+        {
+            List<GioHang> lst = Laygiohang();
+            GioHang item = lst.FirstOrDefault(p => p.Product_ID == id);
+            Product sanpham = db.Products.FirstOrDefault(p => p.Product_ID == id);
+            if(item.Cart_Detail_Quantity < sanpham.Product_Quantity)
+            {
+                item.Cart_Detail_Quantity++;
+            }
+            return RedirectToAction("GioHang", "Cart");
+        }
+
+        public ActionResult GiamSoLuong(int id)
+        {
+            List<GioHang> lst = Laygiohang();
+            GioHang item = lst.FirstOrDefault(p => p.Product_ID == id);
+            Product sanpham = db.Products.FirstOrDefault(p => p.Product_ID == id);
+            if (item.Cart_Detail_Quantity == 1)
+            {
+                return RedirectToAction("GioHang", "Cart");
+            }else
+            {
+                item.Cart_Detail_Quantity--;
+            }
+            return RedirectToAction("GioHang", "Cart");
         }
     }
 }

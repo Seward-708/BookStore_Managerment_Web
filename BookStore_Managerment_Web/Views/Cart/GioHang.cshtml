@@ -1,4 +1,4 @@
-﻿@us
+﻿@model IEnumerable<BookStore_Managerment_Web.Models.GioHang>
 
 
 @{
@@ -24,86 +24,49 @@
                         <td class="quantity">Số lượng</td>
                         <td class="total">Tổng</td>
                         <td></td>
+                        <td></td>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/one.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
+                @{
 
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/two.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/three.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                </tbody>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+
+
+                                    <tr>
+                                        @using (Html.BeginForm("Capnhatgiohang", "Cart",new {@id = item.Product_ID }))
+                                        {
+                                            <td class="cart_product">
+                                                <a href=""><img src="@item.Product_Image" alt=""></a>
+                                            </td>
+                                            <td class="cart_description">
+                                                <h4><a href="@Url.Action("Product_Detail", "Home", new { @product_id = item.Product_ID })">@item.Product_Name</a></h4>
+                                            </td>
+                                            <td class="cart_price">
+                                                <p>@item.Cart_Detail_Price</p>
+                                            </td>
+                                            <td class="cart_quantity">
+                                                <div class="cart_quantity_button">
+                                                    <a class="cart_quantity_up" href="@Url.Action("TangSoLuong", "Cart", new { @id = item.Product_ID })"> + </a>
+                                                    <input class="cart_quantity_input" type="text" name="txtSoLg" id="txtSoLg" value="@item.Cart_Detail_Quantity" autocomplete="off" size="2">
+                                                    <a class="cart_quantity_down" href="@Url.Action("GiamSoLuong","Cart",new {@id = item.Product_ID })"> - </a>
+                                                </div>
+                                            </td>
+                                            <td class="cart_total">
+                                                <p class="cart_total_price">@item.TotalMoney</p>
+                                            </td>
+                                            <td class="cart_delete">
+                                                <a class="cart_quantity_delete" href="@Url.Action("Xoagiohang","Cart", new {@id = item.Product_ID })"><i class="fa fa-times"></i></a>
+                                            </td>
+                                            <td><input type="submit" value="Cập nhật số lượng" class="btn btn-success" /></td>
+                                        }
+                                    </tr>
+                                    }
+
+                                </tbody>
+
+                }
             </table>
         </div>
     </div>
@@ -118,14 +81,15 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Thành tiền: <span>$59</span></li>
+                        <li>Thành tiền: <span>@ViewBag.Tongtien</span></li>
                         <li>Phí ship: <span>Free</span></li>
-                        <li>Tổng cộng: <span>$61</span></li>
+                        <li>Tổng cộng: <span>@ViewBag.Tongtien</span></li>
                     </ul>
-                    <a class="btn btn-default update" href="">Update</a>
-                    <a class="btn btn-default check_out" href="">Check Out</a>
+                    <a class="btn btn-default check_out" href="">Thanh toán</a>
+                    <a class="btn btn-default check_out" href="@Html.Action("Xoagiohang","Cart")">Làm trống giỏ hàng</a>
                 </div>
             </div>
         </div>
     </div>
 </section><!--/#do_action-->
+
