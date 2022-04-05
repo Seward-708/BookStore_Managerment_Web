@@ -76,17 +76,13 @@ namespace BookStore_Managerment_Web.Controllers
             return PartialView(db.Products.Where(p => (p.Category_ID == category_id) && (p.Product_State == true)).ToList());
         }
 
-
-        //[HttpGet]
-        //public ActionResult Search()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult Search(FormCollection collection)
-        //{
-
-        //}
+        [HttpPost]
+        public ActionResult Search(FormCollection collection)
+        {
+            string option = collection["tb_Search"];
+            var lst = db.Products.Where(p =>(p.Product_State == true) && (p.Product_Name.ToLower().Contains(option.ToLower()))).ToList();
+            return View(lst);
+        }
 
 
     }

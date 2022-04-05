@@ -1,0 +1,211 @@
+﻿@using BookStore_Managerment_Web.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var hethang = Session["HetHang"];
+    var saphethang = Session["SapHetHang"];
+    var doanhthu = Session["Doanhthu"];
+    var chuaduyet = Session["DonHangChuaDuyet"];
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3 style="text-align:center">@String.Format("{0:0,0}", doanhthu) VND</h3>
+
+                <h4 style="text-align:center">Doanh thu tháng này</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-bag"></i>
+            </div>
+            <a href="" class="small-box-footer">ㅤ</a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3 style="text-align:center">@chuaduyet</h3>
+
+                <h4 style="text-align:center">Đơn hàng chưa duyệt</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="/Admin/Cart/Cart_No" class="small-box-footer">Xem thêm</a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3 style="text-align:center">@saphethang</h3>
+
+                <h4 style="text-align:center">Tổng số khách hàng</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            <a href="/Admin/Users/Users" class="small-box-footer">Xem thêm</a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3 style="text-align:center">@hethang</h3>
+
+                <h4 style="text-align:center">Hết hàng</h4>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="/Admin/Admin/Sach?searching=0" class="small-box-footer">Xem thêm</a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="charts" style="width:1300px;margin-left:150px;background-color:white;margin-top:10%">
+        <div class="box">
+            <canvas id="myChart" ></canvas>
+        </div>
+        <div class="box"> </div>
+    </div>
+</div>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ Nhật'],
+            datasets: [{
+                label: 'Tiền',
+                data: [@ViewBag.thu2, @ViewBag.thu3, @ViewBag.thu4, @ViewBag.thu5, @ViewBag.thu6, @ViewBag.thu7, @ViewBag.cn],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+
+    });
+</script>
+
+<style>
+    .small-box {
+        border-radius: 0.25rem;
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+        display: block;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        .small-box > .inner {
+            padding: 10px;
+        }
+
+        .small-box > .small-box-footer {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+            padding: 3px 0;
+            position: relative;
+            text-align: center;
+            text-decoration: none;
+            z-index: 10;
+        }
+
+            .small-box > .small-box-footer:hover {
+                background-color: rgba(0, 0, 0, 0.15);
+                color: #fff;
+            }
+
+        .small-box h3 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0 0 10px;
+            padding: 0;
+            white-space: nowrap;
+        }
+
+
+
+
+        .small-box p {
+            font-size: 1rem;
+        }
+
+            .small-box p > small {
+                color: #f8f9fa;
+                display: block;
+                font-size: .9rem;
+                margin-top: 5px;
+            }
+
+        .small-box h3,
+        .small-box p {
+            z-index: 5;
+        }
+
+        .small-box .icon {
+            color: rgba(0, 0, 0, 0.15);
+            z-index: 0;
+        }
+
+            .small-box .icon > i {
+                font-size: 90px;
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                transition: -webkit-transform 0.3s linear;
+                transition: transform 0.3s linear;
+                transition: transform 0.3s linear, -webkit-transform 0.3s linear;
+            }
+
+                .small-box .icon > i.fa, .small-box .icon > i.fas, .small-box .icon > i.far, .small-box .icon > i.fab, .small-box .icon > i.fal, .small-box .icon > i.fad, .small-box .icon > i.ion {
+                    font-size: 70px;
+                    top: 20px;
+                }
+
+            .small-box .icon svg {
+                font-size: 70px;
+                position: absolute;
+                right: 15px;
+                top: 15px;
+                transition: -webkit-transform 0.3s linear;
+                transition: transform 0.3s linear;
+                transition: transform 0.3s linear, -webkit-transform 0.3s linear;
+            }
+
+        .small-box:hover {
+            text-decoration: none;
+        }
+
+            .small-box:hover .icon > i, .small-box:hover .icon > i.fa, .small-box:hover .icon > i.fas, .small-box:hover .icon > i.far, .small-box:hover .icon > i.fab, .small-box:hover .icon > i.fal, .small-box:hover .icon > i.fad, .small-box:hover .icon > i.ion {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+
+            .small-box:hover .icon > svg {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+</style>

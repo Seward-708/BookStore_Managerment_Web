@@ -20,18 +20,18 @@
                 <h2>@Model.Product_Name</h2>
                 @using (Html.BeginForm())
                 {
-                    <span>
-                        <span>@Model.Product_SellPrice</span>
-                        <label>Số lượng:</label>
-                        <input type="text" value="1" name="txtSoLg" />
-                        <button type="button" class="btn btn-fefault cart">
-                            <a href="@Url.Action("ThemGioHang","Cart",new {@id = Model.Product_ID,@strURL = Request.Url.ToString() })">
-                                <i class="fa fa-shopping-cart"></i>
-                                Mua
-                            </a>
-                        </button>
-                    </span>
-                }
+            <span>
+                <span>@Model.Product_SellPrice</span>
+                <label>Số lượng:</label>
+                    <input type="text" value="1" name="txtSoLg" id="txtSoLg" disabled="disabled" />
+                    <button type="button" class="btn btn-fefault cart">
+                        <a href="@Url.Action("ThemGioHang","Cart",new {@id = Model.Product_ID,@strURL = Request.Url.ToString() })">
+                            <i class="fa fa-shopping-cart"></i>
+                            Mua
+                        </a>
+                    </button>
+            </span>
+                            }
                 @{
                     if (Model.Product_Quantity > 0)
                     {

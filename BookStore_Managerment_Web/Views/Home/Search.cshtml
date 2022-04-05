@@ -1,0 +1,54 @@
+﻿@using BookStore_Managerment_Web.Models;
+@model List<Product>
+
+
+
+@{
+    ViewBag.Title = "Category_search";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="left-sidebar">
+                    <div class="panel-group category-products" id="accordian">
+                        <!--category-productsr-->
+                        @Html.Action("Category_List", "Home")
+                    </div><!--/category-productsr-->
+                </div>
+
+            </div>
+
+            <div class="col-sm-9 padding-right">
+                <div class="features_items">
+                    <!--features_items-->
+                    <h2 class="title text-center">Sản phẩm đặc trưng</h2>
+
+                    @{
+                        foreach (var item in Model)
+                        {
+                            <a href="@Url.Action("Product_Detail","Home",new {@product_id = item.Product_ID })">
+                                <div class="col-sm-4" style="cursor:pointer;">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="@item.Product_Image" alt="" />
+                                                <h2>@item.Product_SellPrice</h2>
+                                                <p>@item.Product_Name</p>
+                                                <a href="@Url.Action("Product_Detail","Home",new {@product_id = item.Product_ID })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+
+                </div><!--features_items-->
+            </div>
+        </div>
+    </div>
+</section>
+

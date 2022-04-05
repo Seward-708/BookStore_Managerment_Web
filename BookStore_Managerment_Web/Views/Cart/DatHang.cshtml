@@ -1,4 +1,9 @@
 ﻿@using BookStore_Managerment_Web.Models
+
+@{
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
 <h2 style="text-align:center;">Thông tin đặt hàng</h2>
 @{
     User kh = (User)Session["TaiKhoan"];
@@ -16,10 +21,6 @@
             <td style="font-weight:bold;">@kh.User_Email</td>
         </tr>
         <tr style="height:40px;">
-            <td>Địa chỉ: </td>
-            <td style="font-weight:bold">@kh.User_Address</td>
-        </tr>
-        <tr style="height:40px;">
             <td>Điện thoại: </td>
             <td style="font-weight:bold;">@kh.User_Phone</td>
         </tr>
@@ -28,10 +29,37 @@
             <td style="font-weight:bold;">@DateTime.Now.ToShortDateString()</td>
         </tr>
         <tr style="height:40px;">
-            <td></td>
+            <td>Ngày giao: </td>
             <td style="font-weight:bold;">
-                <input type="submit" value="Xác nhận" class="btn btn-success" />
+                <input type="date" name="NgayGiao" id="NgayGiao" />
+                <span id="NgayGiao_Error" name="NgayGiao_Error"></span>
+            </td>
+
+        </tr>
+        <tr style="height:40px;">
+            <td>Địa chỉ: </td>
+            <td style="font-weight:bold;">
+                <input type="text" name="DiaChi" id="DiaChi" />
+                <span id="DiaChi_Error" name="DiaChi_Error"></span>
+            </td>
+        </tr>
+        <tr style="height:40px;">
+            <td></td>
+            <td style="font-weight:bold;margin-bottom:100px;">
+                <input type="submit" id="btnSubmit" value="Xác nhận" class="btn btn-success" />
             </td>
         </tr>
     }
 </table>
+
+<script src="~/Content/javascript/js/jquery.js"></script>
+<script type="text/javascript">
+    $('#btnSubmit').click(function () {
+        if ($('#DiaChi').val() == "") {
+            $('#DiaChi_Error').text("Địa chỉ không được để trống !");
+            return false;
+        } else {
+            $('#DiaChi_Error').text("");
+        }
+    });
+</script>

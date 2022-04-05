@@ -1,0 +1,191 @@
+﻿@model PagedList.IPagedList<BookStore_Managerment_Web.Models.Product>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "VPP";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+@using BookStore_Managerment_Web.Models;
+@{
+    List<Category> categorys = Session["ListCategory"] as List<Category>;
+    List<Unit> units = Session["ListUnit"] as List<Unit>;
+    List<Provider> providers = Session["ListProviders"] as List<Provider>;
+    List<Publisher> publishers = Session["ListPublisher"] as List<Publisher>;
+}
+@using (Html.BeginForm("VPP", "Admin", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        <label>Tìm kiếm  </label>
+        <input type="Text" class="form-control mx-sm-3" value="@ViewBag.Keyword" name="searchings" placeholder="Tên sản phẩm cần tìm">
+        <input type="submit" class="btn btn-danger" value="Tìm kiếm">
+
+    </div>
+    <hr />
+}
+<p>
+    @Html.ActionLink("Thêm sản phẩm", "CreateVPP", "", new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Sản phẩm
+        </th>
+        <th>
+            Giá
+        </th>
+        <th>
+            Số Lượng
+        </th>
+        <th>
+            Hình ảnh
+        </th>
+
+        <th>
+            Trạng thái
+        </th>
+        <th>
+            Trọng lượng(g)
+        </th>
+
+        <th>
+            Thể loại
+        </th>
+        <th>
+            Đơn vị
+        </th>
+        <th>
+            Nhà cung cấp
+        </th>
+        <th>
+            Nhà xuất bản
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_SellPrice)
+            </td>
+            @if (item.Product_Quantity > 0)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product_Quantity)
+                </td>
+            }
+            else
+            {
+                <td style="color:orangered;font-weight:bold;">
+                    Hết hàng !
+                </td>
+            }
+            <td>
+                <img height="60px" width="60px" src="@Html.DisplayFor(modelItem => item.Product_Image)" />
+            </td>
+
+
+            @if (@item.Product_State == true)
+            {
+                <td>Còn bán</td>
+            }
+            else
+            {
+                <td>Không cho bán</td>
+            }
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Weight)
+            </td>
+
+            @foreach (var itemcategory in categorys)
+            {
+                if (item.Category_ID == itemcategory.Category_ID)
+                {
+                    <td>@Html.DisplayFor(modelItem => itemcategory.Category_Name)</td>
+                }
+            }
+            @foreach (var itemunit in units)
+            {
+                if (item.Unit_ID == itemunit.Unit_ID)
+                {
+                    <td>@Html.DisplayFor(modelItem => itemunit.Unit_Name)</td>
+                }
+            }
+            @foreach (var itemprovider in providers)
+            {
+                if (item.Providers_ID == itemprovider.Providers_ID)
+                {
+                    <td>@Html.DisplayFor(modelItem => itemprovider.Providers_Name)</td>
+                }
+            }
+            @foreach (var itempublisher in publishers)
+            {
+                if (item.Publisher_ID == itempublisher.Publisher_ID)
+                {
+                    <td>@Html.DisplayFor(modelItem => itempublisher.Publisher_Name)</td>
+                }
+            }
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "EditVPP", new { id = item.Product_ID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Chi tiết", "DetailVPP", new { id = item.Product_ID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Xóa", "DeleteVPP", new { id = item.Product_ID }, new { @class = "btn btn-warning" })
+            </td>
+        </tr>
+    }
+
+</table>
+<div>
+    <div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /  @Model.PageCount
+    </div>
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("VPP", "Admin", new { page = page }))
+    </div>
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+<style type="text/css">
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+        #mau-nut a:hover {
+            background-color: darkcyan;
+            color: snow;
+        }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var maxLength = 100;
+        $(".show-read-more").each(function () {
+            var myStr = $(this).text();
+            if ($.trim(myStr).length > maxLength) {
+                var newStr = myStr.substring(0, maxLength);
+                var removedStr = myStr.substring(maxLength, $.trim(myStr).length); $(this).empty().html(newStr);
+                $(this).append(' <a href="javascript:void(0);" class="read more">đọc tiếp...</a>');
+                $(this).append('<span class="more-text">' + removedStr + '</span>');
+            }
+        });
+        $(".read-more").click(function () {
+            $(this).siblings(".more-text").contents().unwrap();
+            $(this).remove();
+        });
+    });
+</script>
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>

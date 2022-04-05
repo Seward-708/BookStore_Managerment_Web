@@ -1,0 +1,146 @@
+﻿@model BookStore_Managerment_Web.Models.Product
+
+@using BookStore_Managerment_Web.Models;
+
+@{
+    ViewBag.Title = "DetailVPP";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    List<Category> categorys = Session["ListCategory"] as List<Category>;
+    List<Unit> units = Session["ListUnit"] as List<Unit>;
+    List<Provider> providers = Session["ListProviders"] as List<Provider>;
+    List<Publisher> publishers = Session["ListPublisher"] as List<Publisher>;
+}
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên sản phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Name)
+        </dd>
+
+        <dt>
+            Giá sản phẩm
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_SellPrice)
+        </dd>
+
+        <dt>
+            Số lượng
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Quantity)
+        </dd>
+
+        <dt>
+            Hình ảnh
+        </dt>
+
+        <dd>
+            <img height="300px" width="300px" src=" @Html.DisplayFor(model => model.Product_Image)" />
+        </dd>
+
+
+        <dt>
+            Trạng thái
+        </dt>
+        @if (@Model.Product_State == true)
+        {
+            <dd>
+                Cho phép bán
+            </dd>
+        }
+        else
+        {
+            <dd>
+                Không cho phép bán
+            </dd>
+        }
+
+
+        <dt>
+            Trọng lượng(g)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Weight)
+        </dd>
+
+
+
+        <dt>
+            Thể loại
+        </dt>
+        @foreach (var itemcategory in categorys)
+        {
+            if (Model.Category_ID == itemcategory.Category_ID)
+            {
+                <dd>@Html.DisplayFor(modelItem => itemcategory.Category_Name)</dd>
+            }
+        }
+        @*<dd>
+                @Html.DisplayFor(model => model.Category_ID)
+            </dd>*@
+
+
+        <dt>
+            Đơn vị
+        </dt>
+
+        @foreach (var itemunit in units)
+        {
+            if (Model.Unit_ID == itemunit.Unit_ID)
+            {
+                <dd>@Html.DisplayFor(modelItem => itemunit.Unit_Name)</dd>
+            }
+        }
+
+
+        <dt>
+            Nhà cung cấp
+        </dt>
+
+        @foreach (var itemprovider in providers)
+        {
+            if (Model.Providers_ID == itemprovider.Providers_ID)
+            {
+                <dd>@Html.DisplayFor(modelItem => itemprovider.Providers_Name)</dd>
+            }
+        }
+
+
+        <dt>
+            Nhà xuất bản
+        </dt>
+
+
+        @foreach (var itempublisher in publishers)
+        {
+            if (Model.Publisher_ID == itempublisher.Publisher_ID)
+            {
+                <dd>@Html.DisplayFor(modelItem => itempublisher.Publisher_Name)</dd>
+            }
+        }
+        <dt>
+            Mô tả
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Infor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Chỉnh sửa", "EditVPP", new { id = Model.Product_ID }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Trở về", "VPP", "", new { @class = "btn btn-default" })
+</p>

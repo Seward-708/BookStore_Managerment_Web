@@ -23,7 +23,43 @@
     <link href="~/Content/CSS/css/prettyPhoto.css" rel="stylesheet" />
     <link href="~/Content/CSS/css/responsive.css" rel="stylesheet" />
     <link href="~/Content/CSS/css/main.css" rel="stylesheet" />
+    <style>
+        search_box input {
+            background: #F0F0E9;
+            border: medium none;
+            color: #B2B2B2;
+            font-family: 'roboto';
+            font-size: 1.6rem;
+            outline: medium none;
+            padding-left: 10px;
+            background-image: url(../images/home/searchicon.png);
+            background-repeat: no-repeat;
+            background-position: 98%;
+            line-height: 50px;
+            padding-top: 0;
+            padding-bottom: 0;
+            color: #333;
+            font-weight: 400;
+        }
 
+        .search_box {
+            display: flex;
+            flex-direction: row;
+        }
+
+            .search_box form{
+                width:100%;
+            }
+
+            .search_box .submitbtn {
+                background-image: none;
+                flex: 1;
+            }
+
+            .search_box .txtText {
+                flex: 3;
+            }
+    </style>
 </head>
 <body>
     <header id="header">
@@ -35,19 +71,37 @@
                         <div class="logo pull-left">
                             <a href="@Url.Action("Index","Home")">
                                 <span class="navbar-brand">HST.COM</span>
-                            </a>
+                            </a>    
                         </div>
                     </div>
                     <div class="col-sm-5">
-                        <div class="search_box">
-                            <input type="text" class="txtText" style="width:78%;" name="tb_Search" id="tb_Search" placeholder="Nhập sản phẩm cần tìm kiếm ..." />
-                            <a href="#"><input type="submit" class="submitbtn" style="width:20%;" name="btn_Submit" id="btn_Submit" value="Tìm Kiếm" /></a>
+                        <div class="search_box" style="line-height:50px;">
+                            @using (Html.BeginForm("Search","Home",FormMethod.Post))
+                            {
+                                <input type="text" class="txtText" style="width:78%;" name="tb_Search" id="tb_Search" placeholder="Nhập sản phẩm cần tìm kiếm ..." />
+                                <input type="submit" class="submitbtn" style="width:20%;" name="btn_Submit" id="btn_Submit" value="Tìm Kiếm" />
+                            }
                         </div>
-                    </div>
+                    </div>  
                     <div class="col-sm-4">
                         <div class="shop-menu pull-right">
                             <ul class="nav navbar-nav">
-                                <li><a href="@Url.Action("DangNhap","User") " class="elements"><i class="fa fa-user"></i> Account</a></li>
+                                <li>
+                                    @{
+                                        if (Session["TaiKhoan"] == null)
+                                        {
+                                            <a href="@Url.Action("DangNhap", "User") " class="elements">
+                                                <i class="fa fa-user"></i> Account
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("EditInfor", "User") " class="elements">
+                                                <i class="fa fa-user"></i> Account
+                                            </a>
+                                        }
+                                    }
+                                </li>
                                 <li><a href="@Url.Action("GioHang","Cart")"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             </ul>
                         </div>

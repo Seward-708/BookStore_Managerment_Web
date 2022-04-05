@@ -1,0 +1,200 @@
+﻿@model BookStore_Managerment_Web.Models.User
+
+@{
+    ViewBag.Title = "EditInfor";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="margin-left:20%;margin-right:30%">
+        <h2 style="margin-left:10%;">Thông tin tài khoản</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Users_ID)
+
+        <div class="form-group">
+
+            <h4 class="control-label col-md-2">Họ và tên:</h4>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Users_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Users_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h4 class="control-label col-md-2">Số điện thoại:</h4>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User_Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User_Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h4 class="control-label col-md-2">Email:</h4>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User_Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User_Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h4 class="control-label col-md-2">Giới tính:</h4>
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.User_Sex, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.User_Sex, "", new { @class = "text-danger" })*@
+                <div class="fhs-input-group">
+                    @if (Model.User_Sex == false)
+                    {
+                        <p style="margin-left:18%">@Html.RadioButton("CheckState", "nam", true) Nam </p>
+                        <p style="margin-left:18%">@Html.RadioButton("CheckState", "nu") Nữ</p>
+                    }
+                    else
+                    {
+                        <p style="margin-left:18%">@Html.RadioButton("CheckState", "nam") Nam </p>
+                        <p style="margin-left:18%">@Html.RadioButton("CheckState", "nu", true) Nữ</p>
+                    }
+                    @*<input hidden="true" type="text" id="gender" name="gender" value="">*@
+                    @*<div style="width: 42px;"></div>
+                        <div style="clear: both;"></div>
+                        <span class="fhs-input-icon fhs-textbox-alert"></span>*@
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h4 class="control-label col-md-2">Ngày sinh:</h4>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User_Birthday, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User_Birthday, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <h4 class="control-label col-md-2">Tài khoản:</h4>
+            <div class="col-md-10">
+                <p class="form-control">@Model.User_AccountName</p>
+                @ViewBag.TT
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-success" />
+            </div>
+        </div>
+        <hr />
+
+
+
+
+
+
+        <h3>Các đơn đặt hàng gần nhất</h3>
+        @using BookStore_Managerment_Web.Models;
+        @{
+            List<Cart> kh = Session["CartTemp"] as List<Cart>;
+            List<TongTien> tt = Session["Gia"] as List<TongTien>;
+        }
+        @*List*@
+        <table class="table">
+            <tr>
+                <th>
+                    Mã đơn hàng
+                </th>
+                <th>
+                    Ngày tạo
+                </th>
+
+                <th>
+                    Trạng thái đơn hàng
+                </th>
+                <th>
+                    Tổng tiền
+                </th>
+
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in kh)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cart_ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cart_DateCreate)
+                    </td>
+
+
+
+
+                    @if (item.Cart_Delivery_State == null)
+                    {
+                        <td style="color: lightcoral; font-weight: bold">
+                            Chưa duyệt
+                        </td>
+                    }
+                    @if (item.Cart_Delivery_State == false)
+                    {
+                        <td style="color:forestgreen;font-weight:bold">
+                            Đã duyệt
+                        </td>
+                    }
+                    @if (item.Cart_Delivery_State == true)
+                    {
+                        <td style="color:forestgreen;font-weight:bold">
+                            Đang Giao hàng
+                        </td>
+                    }
+
+                    @foreach (var itemtt in tt)
+                    {
+                        if (item.Cart_ID == itemtt.Cart_ID)
+                        {
+
+                            <td>
+                                @String.Format("{0:0,0}", itemtt.gia)
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+
+        </table>
+        @**@
+    </div>
+
+}
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+<style>
+    .fhs-input-group {
+        position: relative;
+        display: flex;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        flex-direction: row;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-align-items: center;
+    }
+</style>
+
+<div class="col-sm-offset-5" style="margin-top:40px;margin-bottom:40px;">
+    <a href="@Url.Action("DangXuat","User")"><button class="btn btn-warning">Đăng xuất</button></a>
+</div>

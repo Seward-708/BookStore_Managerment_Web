@@ -46,6 +46,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -122,6 +128,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Cart2Controller.cs" />
+    <Compile Include="Areas\Admin\Controllers\UnitCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -137,6 +148,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\ContentAdmin\Admin2.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -176,6 +188,7 @@
     <Content Include="Content\javascript\js\jquery.prettyPhoto.js" />
     <Content Include="Content\javascript\js\jquery.scrollUp.min.js" />
     <Content Include="Content\javascript\js\main.js" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -193,6 +206,39 @@
       <LastGenOutput>BookStore.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Admin\CreateSach.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\DeleteSach.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\DetailSach.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\EditSach.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Sach.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\VPP.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\UnitCategory\Category.cshtml" />
+    <Content Include="Areas\Admin\Views\UnitCategory\CreateCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\UnitCategory\CreateUnit.cshtml" />
+    <Content Include="Areas\Admin\Views\UnitCategory\DeleteCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\UnitCategory\DeleteUnit.cshtml" />
+    <Content Include="Areas\Admin\Views\UnitCategory\EditCategory.cshtml" />
+    <Content Include="Areas\Admin\Views\UnitCategory\EditUnit.cshtml" />
+    <Content Include="Areas\Admin\Views\UnitCategory\Unit.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\CreateProviders.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\CreatePublishers.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\EditProviders.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\EditPublishers.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Providers.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Publishers.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Users.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\CreateVPP.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\DetailVPP.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\DeleteVPP.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\EditVPP.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart2\Cart.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart2\Cart_No.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart2\Cart_Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\Cart2\CartALL_Detail.cshtml" />
     <None Include="Models\BookStore.dbml.layout">
       <DependentUpon>BookStore.dbml</DependentUpon>
     </None>
@@ -230,6 +276,9 @@
     <Content Include="Views\Cart\DatHang.cshtml" />
     <Content Include="Views\Home\category.cshtml" />
     <Content Include="Views\Home\category_items.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Cart\XacNhanDonHang.cshtml" />
+    <Content Include="Views\User\EditInfor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -46,6 +46,7 @@ namespace BookStore_Managerment_Web.Controllers
             return Redirect(strURL);
         }
 
+
         private int TongSoLuong()
         {
             int tsl = 0;
@@ -140,11 +141,11 @@ namespace BookStore_Managerment_Web.Controllers
         {
             if (Session["TaiKhoan"] == null || Session["TaiKhoan"].ToString() == "")
             {
-                return RedirectToAction("DangNhap", "NguoiDung");
+                return RedirectToAction("DangNhap", "User");
             }
             if (Session["Giohang"] == null)
             {
-                return RedirectToAction("Index", "Sach");
+                return RedirectToAction("Index", "Home");
             }
             List<GioHang> lstGioHang = Laygiohang();
             ViewBag.Tongsoluong = TongSoLuong();
@@ -156,17 +157,18 @@ namespace BookStore_Managerment_Web.Controllers
         public ActionResult DatHang(System.Web.Mvc.FormCollection collection)
         {
             Cart dh = new Cart();
-            User kh = (User)Session["Account"];
+            User kh = (User)Session["TaiKhoan"];
             Product s = new Product();
 
             List<GioHang> gh = Laygiohang();
-            var ngaygiao = string.Format("{0:MM/dd/yyyy}", collection["Cart_Deliveryday"]);
+            var ngaygiao = string.Format("{0:MM/dd/yyyy}", collection["NgayGiao"]);
+
 
             dh.Users_ID = kh.Users_ID;
             dh.Cart_DateCreate = DateTime.Now;
             dh.Cart_Deliveryday = DateTime.Parse(ngaygiao);
             dh.Cart_State = true;
-            dh.Cart_Address = collection["Cart_Address"];
+            dh.Cart_Address = collection["DiaChi"];
 
             db.Carts.InsertOnSubmit(dh);
             db.SubmitChanges();
@@ -184,7 +186,7 @@ namespace BookStore_Managerment_Web.Controllers
             }
             db.SubmitChanges();
             Session["Giohang"] = null;
-            return RedirectToAction("XacNhanDonHang", "GioHang");
+            return RedirectToAction("XacNhanDonHang", "Cart");
         }
 
         // GET: GioHang

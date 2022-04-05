@@ -20,9 +20,9 @@ namespace BookStore_Managerment_Web.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BookStore_Web")]
+    using System.ComponentModel.DataAnnotations;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BookStore_Web")]
 	public partial class BookStoreDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -36,24 +36,18 @@ namespace BookStore_Managerment_Web.Models
     partial void InsertBook_Writter(Book_Writter instance);
     partial void UpdateBook_Writter(Book_Writter instance);
     partial void DeleteBook_Writter(Book_Writter instance);
-    partial void InsertCart(Cart instance);
-    partial void UpdateCart(Cart instance);
-    partial void DeleteCart(Cart instance);
     partial void InsertCart_Detail(Cart_Detail instance);
     partial void UpdateCart_Detail(Cart_Detail instance);
     partial void DeleteCart_Detail(Cart_Detail instance);
+    partial void InsertCart(Cart instance);
+    partial void UpdateCart(Cart instance);
+    partial void DeleteCart(Cart instance);
     partial void InsertCategory(Category instance);
     partial void UpdateCategory(Category instance);
     partial void DeleteCategory(Category instance);
-    partial void InsertComment(Comment instance);
-    partial void UpdateComment(Comment instance);
-    partial void DeleteComment(Comment instance);
     partial void InsertProduct(Product instance);
     partial void UpdateProduct(Product instance);
     partial void DeleteProduct(Product instance);
-    partial void InsertProvider(Provider instance);
-    partial void UpdateProvider(Provider instance);
-    partial void DeleteProvider(Provider instance);
     partial void InsertPublisher(Publisher instance);
     partial void UpdatePublisher(Publisher instance);
     partial void DeletePublisher(Publisher instance);
@@ -63,6 +57,9 @@ namespace BookStore_Managerment_Web.Models
     partial void InsertUser(User instance);
     partial void UpdateUser(User instance);
     partial void DeleteUser(User instance);
+    partial void InsertProvider(Provider instance);
+    partial void UpdateProvider(Provider instance);
+    partial void DeleteProvider(Provider instance);
     #endregion
 		
 		public BookStoreDataContext() : 
@@ -111,19 +108,19 @@ namespace BookStore_Managerment_Web.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Cart> Carts
-		{
-			get
-			{
-				return this.GetTable<Cart>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Cart_Detail> Cart_Details
 		{
 			get
 			{
 				return this.GetTable<Cart_Detail>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Cart> Carts
+		{
+			get
+			{
+				return this.GetTable<Cart>();
 			}
 		}
 		
@@ -135,27 +132,11 @@ namespace BookStore_Managerment_Web.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<Comment> Comments
-		{
-			get
-			{
-				return this.GetTable<Comment>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Product> Products
 		{
 			get
 			{
 				return this.GetTable<Product>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Provider> Providers
-		{
-			get
-			{
-				return this.GetTable<Provider>();
 			}
 		}
 		
@@ -180,6 +161,38 @@ namespace BookStore_Managerment_Web.Models
 			get
 			{
 				return this.GetTable<User>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Provider> Providers
+		{
+			get
+			{
+				return this.GetTable<Provider>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TongTien> TongTiens
+		{
+			get
+			{
+				return this.GetTable<TongTien>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Doanhthu> Doanhthus
+		{
+			get
+			{
+				return this.GetTable<Doanhthu>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DoanhThuBang> DoanhThuBangs
+		{
+			get
+			{
+				return this.GetTable<DoanhThuBang>();
 			}
 		}
 	}
@@ -514,257 +527,6 @@ namespace BookStore_Managerment_Web.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Cart")]
-	public partial class Cart : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Cart_ID;
-		
-		private System.Nullable<System.DateTime> _Cart_DateCreate;
-		
-		private System.Nullable<bool> _Cart_State;
-		
-		private System.Nullable<System.DateTime> _Cart_Deliveryday;
-		
-		private string _Cart_Address;
-		
-		private System.Nullable<int> _Users_ID;
-		
-		private EntitySet<Cart_Detail> _Cart_Details;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCart_IDChanging(int value);
-    partial void OnCart_IDChanged();
-    partial void OnCart_DateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCart_DateCreateChanged();
-    partial void OnCart_StateChanging(System.Nullable<bool> value);
-    partial void OnCart_StateChanged();
-    partial void OnCart_DeliverydayChanging(System.Nullable<System.DateTime> value);
-    partial void OnCart_DeliverydayChanged();
-    partial void OnCart_AddressChanging(string value);
-    partial void OnCart_AddressChanged();
-    partial void OnUsers_IDChanging(System.Nullable<int> value);
-    partial void OnUsers_IDChanged();
-    #endregion
-		
-		public Cart()
-		{
-			this._Cart_Details = new EntitySet<Cart_Detail>(new Action<Cart_Detail>(this.attach_Cart_Details), new Action<Cart_Detail>(this.detach_Cart_Details));
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Cart_ID
-		{
-			get
-			{
-				return this._Cart_ID;
-			}
-			set
-			{
-				if ((this._Cart_ID != value))
-				{
-					this.OnCart_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Cart_ID = value;
-					this.SendPropertyChanged("Cart_ID");
-					this.OnCart_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Cart_DateCreate
-		{
-			get
-			{
-				return this._Cart_DateCreate;
-			}
-			set
-			{
-				if ((this._Cart_DateCreate != value))
-				{
-					this.OnCart_DateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Cart_DateCreate = value;
-					this.SendPropertyChanged("Cart_DateCreate");
-					this.OnCart_DateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_State", DbType="Bit")]
-		public System.Nullable<bool> Cart_State
-		{
-			get
-			{
-				return this._Cart_State;
-			}
-			set
-			{
-				if ((this._Cart_State != value))
-				{
-					this.OnCart_StateChanging(value);
-					this.SendPropertyChanging();
-					this._Cart_State = value;
-					this.SendPropertyChanged("Cart_State");
-					this.OnCart_StateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_Deliveryday", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Cart_Deliveryday
-		{
-			get
-			{
-				return this._Cart_Deliveryday;
-			}
-			set
-			{
-				if ((this._Cart_Deliveryday != value))
-				{
-					this.OnCart_DeliverydayChanging(value);
-					this.SendPropertyChanging();
-					this._Cart_Deliveryday = value;
-					this.SendPropertyChanged("Cart_Deliveryday");
-					this.OnCart_DeliverydayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_Address", DbType="NVarChar(100)")]
-		public string Cart_Address
-		{
-			get
-			{
-				return this._Cart_Address;
-			}
-			set
-			{
-				if ((this._Cart_Address != value))
-				{
-					this.OnCart_AddressChanging(value);
-					this.SendPropertyChanging();
-					this._Cart_Address = value;
-					this.SendPropertyChanged("Cart_Address");
-					this.OnCart_AddressChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Users_ID", DbType="Int")]
-		public System.Nullable<int> Users_ID
-		{
-			get
-			{
-				return this._Users_ID;
-			}
-			set
-			{
-				if ((this._Users_ID != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUsers_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Users_ID = value;
-					this.SendPropertyChanged("Users_ID");
-					this.OnUsers_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cart_Cart_Detail", Storage="_Cart_Details", ThisKey="Cart_ID", OtherKey="Cart_ID")]
-		public EntitySet<Cart_Detail> Cart_Details
-		{
-			get
-			{
-				return this._Cart_Details;
-			}
-			set
-			{
-				this._Cart_Details.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Cart", Storage="_User", ThisKey="Users_ID", OtherKey="Users_ID", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Carts.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Carts.Add(this);
-						this._Users_ID = value.Users_ID;
-					}
-					else
-					{
-						this._Users_ID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Cart_Details(Cart_Detail entity)
-		{
-			this.SendPropertyChanging();
-			entity.Cart = this;
-		}
-		
-		private void detach_Cart_Details(Cart_Detail entity)
-		{
-			this.SendPropertyChanging();
-			entity.Cart = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Cart_Detail")]
 	public partial class Cart_Detail : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -981,6 +743,281 @@ namespace BookStore_Managerment_Web.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Cart")]
+	public partial class Cart : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Cart_ID;
+		
+		private System.Nullable<System.DateTime> _Cart_DateCreate;
+		
+		private System.Nullable<bool> _Cart_State;
+		
+		private System.Nullable<bool> _Cart_Delivery_State;
+		
+		private System.Nullable<System.DateTime> _Cart_Deliveryday;
+		
+		private string _Cart_Address;
+		
+		private System.Nullable<int> _Users_ID;
+		
+		private EntitySet<Cart_Detail> _Cart_Details;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCart_IDChanging(int value);
+    partial void OnCart_IDChanged();
+    partial void OnCart_DateCreateChanging(System.Nullable<System.DateTime> value);
+    partial void OnCart_DateCreateChanged();
+    partial void OnCart_StateChanging(System.Nullable<bool> value);
+    partial void OnCart_StateChanged();
+    partial void OnCart_Delivery_StateChanging(System.Nullable<bool> value);
+    partial void OnCart_Delivery_StateChanged();
+    partial void OnCart_DeliverydayChanging(System.Nullable<System.DateTime> value);
+    partial void OnCart_DeliverydayChanged();
+    partial void OnCart_AddressChanging(string value);
+    partial void OnCart_AddressChanged();
+    partial void OnUsers_IDChanging(System.Nullable<int> value);
+    partial void OnUsers_IDChanged();
+    #endregion
+		
+		public Cart()
+		{
+			this._Cart_Details = new EntitySet<Cart_Detail>(new Action<Cart_Detail>(this.attach_Cart_Details), new Action<Cart_Detail>(this.detach_Cart_Details));
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Cart_ID
+		{
+			get
+			{
+				return this._Cart_ID;
+			}
+			set
+			{
+				if ((this._Cart_ID != value))
+				{
+					this.OnCart_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Cart_ID = value;
+					this.SendPropertyChanged("Cart_ID");
+					this.OnCart_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_DateCreate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Cart_DateCreate
+		{
+			get
+			{
+				return this._Cart_DateCreate;
+			}
+			set
+			{
+				if ((this._Cart_DateCreate != value))
+				{
+					this.OnCart_DateCreateChanging(value);
+					this.SendPropertyChanging();
+					this._Cart_DateCreate = value;
+					this.SendPropertyChanged("Cart_DateCreate");
+					this.OnCart_DateCreateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_State", DbType="Bit")]
+		public System.Nullable<bool> Cart_State
+		{
+			get
+			{
+				return this._Cart_State;
+			}
+			set
+			{
+				if ((this._Cart_State != value))
+				{
+					this.OnCart_StateChanging(value);
+					this.SendPropertyChanging();
+					this._Cart_State = value;
+					this.SendPropertyChanged("Cart_State");
+					this.OnCart_StateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_Delivery_State", DbType="Bit")]
+		public System.Nullable<bool> Cart_Delivery_State
+		{
+			get
+			{
+				return this._Cart_Delivery_State;
+			}
+			set
+			{
+				if ((this._Cart_Delivery_State != value))
+				{
+					this.OnCart_Delivery_StateChanging(value);
+					this.SendPropertyChanging();
+					this._Cart_Delivery_State = value;
+					this.SendPropertyChanged("Cart_Delivery_State");
+					this.OnCart_Delivery_StateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_Deliveryday", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Cart_Deliveryday
+		{
+			get
+			{
+				return this._Cart_Deliveryday;
+			}
+			set
+			{
+				if ((this._Cart_Deliveryday != value))
+				{
+					this.OnCart_DeliverydayChanging(value);
+					this.SendPropertyChanging();
+					this._Cart_Deliveryday = value;
+					this.SendPropertyChanged("Cart_Deliveryday");
+					this.OnCart_DeliverydayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_Address", DbType="NVarChar(100)")]
+		public string Cart_Address
+		{
+			get
+			{
+				return this._Cart_Address;
+			}
+			set
+			{
+				if ((this._Cart_Address != value))
+				{
+					this.OnCart_AddressChanging(value);
+					this.SendPropertyChanging();
+					this._Cart_Address = value;
+					this.SendPropertyChanged("Cart_Address");
+					this.OnCart_AddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Users_ID", DbType="Int")]
+		public System.Nullable<int> Users_ID
+		{
+			get
+			{
+				return this._Users_ID;
+			}
+			set
+			{
+				if ((this._Users_ID != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUsers_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Users_ID = value;
+					this.SendPropertyChanged("Users_ID");
+					this.OnUsers_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cart_Cart_Detail", Storage="_Cart_Details", ThisKey="Cart_ID", OtherKey="Cart_ID")]
+		public EntitySet<Cart_Detail> Cart_Details
+		{
+			get
+			{
+				return this._Cart_Details;
+			}
+			set
+			{
+				this._Cart_Details.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Cart", Storage="_User", ThisKey="Users_ID", OtherKey="Users_ID", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.Carts.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.Carts.Add(this);
+						this._Users_ID = value.Users_ID;
+					}
+					else
+					{
+						this._Users_ID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Cart_Details(Cart_Detail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Cart = this;
+		}
+		
+		private void detach_Cart_Details(Cart_Detail entity)
+		{
+			this.SendPropertyChanging();
+			entity.Cart = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Category")]
 	public partial class Category : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -992,6 +1029,8 @@ namespace BookStore_Managerment_Web.Models
 		private string _Category_Name;
 		
 		private System.Nullable<bool> _Category_State;
+		
+		private System.Nullable<bool> _Category_isBook;
 		
 		private EntitySet<Product> _Products;
 		
@@ -1005,6 +1044,8 @@ namespace BookStore_Managerment_Web.Models
     partial void OnCategory_NameChanged();
     partial void OnCategory_StateChanging(System.Nullable<bool> value);
     partial void OnCategory_StateChanged();
+    partial void OnCategory_isBookChanging(System.Nullable<bool> value);
+    partial void OnCategory_isBookChanged();
     #endregion
 		
 		public Category()
@@ -1073,6 +1114,26 @@ namespace BookStore_Managerment_Web.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Category_isBook", DbType="Bit")]
+		public System.Nullable<bool> Category_isBook
+		{
+			get
+			{
+				return this._Category_isBook;
+			}
+			set
+			{
+				if ((this._Category_isBook != value))
+				{
+					this.OnCategory_isBookChanging(value);
+					this.SendPropertyChanging();
+					this._Category_isBook = value;
+					this.SendPropertyChanged("Category_isBook");
+					this.OnCategory_isBookChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Category_Product", Storage="_Products", ThisKey="Category_ID", OtherKey="Category_ID")]
 		public EntitySet<Product> Products
 		{
@@ -1119,222 +1180,6 @@ namespace BookStore_Managerment_Web.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Comment")]
-	public partial class Comment : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Comment_Infor;
-		
-		private System.Nullable<System.DateTime> _Comment_DateCreate;
-		
-		private int _Users_ID;
-		
-		private int _Product_ID;
-		
-		private EntityRef<Product> _Product;
-		
-		private EntityRef<User> _User;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnComment_InforChanging(string value);
-    partial void OnComment_InforChanged();
-    partial void OnComment_DateCreateChanging(System.Nullable<System.DateTime> value);
-    partial void OnComment_DateCreateChanged();
-    partial void OnUsers_IDChanging(int value);
-    partial void OnUsers_IDChanged();
-    partial void OnProduct_IDChanging(int value);
-    partial void OnProduct_IDChanged();
-    #endregion
-		
-		public Comment()
-		{
-			this._Product = default(EntityRef<Product>);
-			this._User = default(EntityRef<User>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment_Infor", DbType="NVarChar(500)")]
-		public string Comment_Infor
-		{
-			get
-			{
-				return this._Comment_Infor;
-			}
-			set
-			{
-				if ((this._Comment_Infor != value))
-				{
-					this.OnComment_InforChanging(value);
-					this.SendPropertyChanging();
-					this._Comment_Infor = value;
-					this.SendPropertyChanged("Comment_Infor");
-					this.OnComment_InforChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Comment_DateCreate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Comment_DateCreate
-		{
-			get
-			{
-				return this._Comment_DateCreate;
-			}
-			set
-			{
-				if ((this._Comment_DateCreate != value))
-				{
-					this.OnComment_DateCreateChanging(value);
-					this.SendPropertyChanging();
-					this._Comment_DateCreate = value;
-					this.SendPropertyChanged("Comment_DateCreate");
-					this.OnComment_DateCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Users_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Users_ID
-		{
-			get
-			{
-				return this._Users_ID;
-			}
-			set
-			{
-				if ((this._Users_ID != value))
-				{
-					if (this._User.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnUsers_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Users_ID = value;
-					this.SendPropertyChanged("Users_ID");
-					this.OnUsers_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Product_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Product_ID
-		{
-			get
-			{
-				return this._Product_ID;
-			}
-			set
-			{
-				if ((this._Product_ID != value))
-				{
-					if (this._Product.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnProduct_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Product_ID = value;
-					this.SendPropertyChanged("Product_ID");
-					this.OnProduct_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_Comment", Storage="_Product", ThisKey="Product_ID", OtherKey="Product_ID", IsForeignKey=true)]
-		public Product Product
-		{
-			get
-			{
-				return this._Product.Entity;
-			}
-			set
-			{
-				Product previousValue = this._Product.Entity;
-				if (((previousValue != value) 
-							|| (this._Product.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Product.Entity = null;
-						previousValue.Comments.Remove(this);
-					}
-					this._Product.Entity = value;
-					if ((value != null))
-					{
-						value.Comments.Add(this);
-						this._Product_ID = value.Product_ID;
-					}
-					else
-					{
-						this._Product_ID = default(int);
-					}
-					this.SendPropertyChanged("Product");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Comment", Storage="_User", ThisKey="Users_ID", OtherKey="Users_ID", IsForeignKey=true)]
-		public User User
-		{
-			get
-			{
-				return this._User.Entity;
-			}
-			set
-			{
-				User previousValue = this._User.Entity;
-				if (((previousValue != value) 
-							|| (this._User.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User.Entity = null;
-						previousValue.Comments.Remove(this);
-					}
-					this._User.Entity = value;
-					if ((value != null))
-					{
-						value.Comments.Add(this);
-						this._Users_ID = value.Users_ID;
-					}
-					else
-					{
-						this._Users_ID = default(int);
-					}
-					this.SendPropertyChanged("User");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Product")]
 	public partial class Product : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1371,15 +1216,13 @@ namespace BookStore_Managerment_Web.Models
 		
 		private EntitySet<Cart_Detail> _Cart_Details;
 		
-		private EntitySet<Comment> _Comments;
-		
 		private EntityRef<Category> _Category;
-		
-		private EntityRef<Provider> _Provider;
 		
 		private EntityRef<Publisher> _Publisher;
 		
 		private EntityRef<Unit> _Unit;
+		
+		private EntityRef<Provider> _Provider;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1417,11 +1260,10 @@ namespace BookStore_Managerment_Web.Models
 		{
 			this._Book_Writters = new EntitySet<Book_Writter>(new Action<Book_Writter>(this.attach_Book_Writters), new Action<Book_Writter>(this.detach_Book_Writters));
 			this._Cart_Details = new EntitySet<Cart_Detail>(new Action<Cart_Detail>(this.attach_Cart_Details), new Action<Cart_Detail>(this.detach_Cart_Details));
-			this._Comments = new EntitySet<Comment>(new Action<Comment>(this.attach_Comments), new Action<Comment>(this.detach_Comments));
 			this._Category = default(EntityRef<Category>);
-			this._Provider = default(EntityRef<Provider>);
 			this._Publisher = default(EntityRef<Publisher>);
 			this._Unit = default(EntityRef<Unit>);
+			this._Provider = default(EntityRef<Provider>);
 			OnCreated();
 		}
 		
@@ -1727,19 +1569,6 @@ namespace BookStore_Managerment_Web.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Product_Comment", Storage="_Comments", ThisKey="Product_ID", OtherKey="Product_ID")]
-		public EntitySet<Comment> Comments
-		{
-			get
-			{
-				return this._Comments;
-			}
-			set
-			{
-				this._Comments.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Category_Product", Storage="_Category", ThisKey="Category_ID", OtherKey="Category_ID", IsForeignKey=true)]
 		public Category Category
 		{
@@ -1770,40 +1599,6 @@ namespace BookStore_Managerment_Web.Models
 						this._Category_ID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Category");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Provider_Product", Storage="_Provider", ThisKey="Providers_ID", OtherKey="Providers_ID", IsForeignKey=true)]
-		public Provider Provider
-		{
-			get
-			{
-				return this._Provider.Entity;
-			}
-			set
-			{
-				Provider previousValue = this._Provider.Entity;
-				if (((previousValue != value) 
-							|| (this._Provider.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Provider.Entity = null;
-						previousValue.Products.Remove(this);
-					}
-					this._Provider.Entity = value;
-					if ((value != null))
-					{
-						value.Products.Add(this);
-						this._Providers_ID = value.Providers_ID;
-					}
-					else
-					{
-						this._Providers_ID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Provider");
 				}
 			}
 		}
@@ -1876,6 +1671,40 @@ namespace BookStore_Managerment_Web.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Provider_Product", Storage="_Provider", ThisKey="Providers_ID", OtherKey="Providers_ID", IsForeignKey=true)]
+		public Provider Provider
+		{
+			get
+			{
+				return this._Provider.Entity;
+			}
+			set
+			{
+				Provider previousValue = this._Provider.Entity;
+				if (((previousValue != value) 
+							|| (this._Provider.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Provider.Entity = null;
+						previousValue.Products.Remove(this);
+					}
+					this._Provider.Entity = value;
+					if ((value != null))
+					{
+						value.Products.Add(this);
+						this._Providers_ID = value.Providers_ID;
+					}
+					else
+					{
+						this._Providers_ID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Provider");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1918,132 +1747,6 @@ namespace BookStore_Managerment_Web.Models
 		{
 			this.SendPropertyChanging();
 			entity.Product = null;
-		}
-		
-		private void attach_Comments(Comment entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = this;
-		}
-		
-		private void detach_Comments(Comment entity)
-		{
-			this.SendPropertyChanging();
-			entity.Product = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Providers")]
-	public partial class Provider : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Providers_ID;
-		
-		private string _Providers_Name;
-		
-		private EntitySet<Product> _Products;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnProviders_IDChanging(int value);
-    partial void OnProviders_IDChanged();
-    partial void OnProviders_NameChanging(string value);
-    partial void OnProviders_NameChanged();
-    #endregion
-		
-		public Provider()
-		{
-			this._Products = new EntitySet<Product>(new Action<Product>(this.attach_Products), new Action<Product>(this.detach_Products));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Providers_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Providers_ID
-		{
-			get
-			{
-				return this._Providers_ID;
-			}
-			set
-			{
-				if ((this._Providers_ID != value))
-				{
-					this.OnProviders_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Providers_ID = value;
-					this.SendPropertyChanged("Providers_ID");
-					this.OnProviders_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Providers_Name", DbType="NVarChar(50)")]
-		public string Providers_Name
-		{
-			get
-			{
-				return this._Providers_Name;
-			}
-			set
-			{
-				if ((this._Providers_Name != value))
-				{
-					this.OnProviders_NameChanging(value);
-					this.SendPropertyChanging();
-					this._Providers_Name = value;
-					this.SendPropertyChanged("Providers_Name");
-					this.OnProviders_NameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Provider_Product", Storage="_Products", ThisKey="Providers_ID", OtherKey="Providers_ID")]
-		public EntitySet<Product> Products
-		{
-			get
-			{
-				return this._Products;
-			}
-			set
-			{
-				this._Products.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Products(Product entity)
-		{
-			this.SendPropertyChanging();
-			entity.Provider = this;
-		}
-		
-		private void detach_Products(Product entity)
-		{
-			this.SendPropertyChanging();
-			entity.Provider = null;
 		}
 	}
 	
@@ -2327,8 +2030,6 @@ namespace BookStore_Managerment_Web.Models
 		
 		private EntitySet<Cart> _Carts;
 		
-		private EntitySet<Comment> _Comments;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2358,7 +2059,6 @@ namespace BookStore_Managerment_Web.Models
 		public User()
 		{
 			this._Carts = new EntitySet<Cart>(new Action<Cart>(this.attach_Carts), new Action<Cart>(this.detach_Carts));
-			this._Comments = new EntitySet<Comment>(new Action<Comment>(this.attach_Comments), new Action<Comment>(this.detach_Comments));
 			OnCreated();
 		}
 		
@@ -2383,6 +2083,7 @@ namespace BookStore_Managerment_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Users_Name", DbType="NVarChar(50)")]
+		[Display(Name = "Họ và tên")]
 		public string Users_Name
 		{
 			get
@@ -2403,6 +2104,7 @@ namespace BookStore_Managerment_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Phone", DbType="VarChar(12)")]
+		[Display(Name = "Số điện thoại")]
 		public string User_Phone
 		{
 			get
@@ -2423,6 +2125,7 @@ namespace BookStore_Managerment_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Email", DbType="NVarChar(50)")]
+		[Display(Name = "Email")]
 		public string User_Email
 		{
 			get
@@ -2443,6 +2146,7 @@ namespace BookStore_Managerment_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Sex", DbType="Bit")]
+		[Display(Name = "Giới tính")]
 		public System.Nullable<bool> User_Sex
 		{
 			get
@@ -2463,6 +2167,9 @@ namespace BookStore_Managerment_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_Birthday", DbType="Date")]
+		[Display(Name = "Ngày sinh")]
+		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
 		public System.Nullable<System.DateTime> User_Birthday
 		{
 			get
@@ -2503,6 +2210,7 @@ namespace BookStore_Managerment_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_AccountName", DbType="NVarChar(50)")]
+		[Display(Name = "Tài khoản")]
 		public string User_AccountName
 		{
 			get
@@ -2523,6 +2231,7 @@ namespace BookStore_Managerment_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_User_AccountPassword", DbType="NVarChar(50)")]
+		[Display(Name = "Mật khẩu")]
 		public string User_AccountPassword
 		{
 			get
@@ -2575,19 +2284,6 @@ namespace BookStore_Managerment_Web.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_Comment", Storage="_Comments", ThisKey="Users_ID", OtherKey="Users_ID")]
-		public EntitySet<Comment> Comments
-		{
-			get
-			{
-				return this._Comments;
-			}
-			set
-			{
-				this._Comments.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2619,17 +2315,254 @@ namespace BookStore_Managerment_Web.Models
 			this.SendPropertyChanging();
 			entity.User = null;
 		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Providers")]
+	public partial class Provider : INotifyPropertyChanging, INotifyPropertyChanged
+	{
 		
-		private void attach_Comments(Comment entity)
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Providers_ID;
+		
+		private string _Providers_Name;
+		
+		private EntitySet<Product> _Products;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnProviders_IDChanging(int value);
+    partial void OnProviders_IDChanged();
+    partial void OnProviders_NameChanging(string value);
+    partial void OnProviders_NameChanged();
+    #endregion
+		
+		public Provider()
 		{
-			this.SendPropertyChanging();
-			entity.User = this;
+			this._Products = new EntitySet<Product>(new Action<Product>(this.attach_Products), new Action<Product>(this.detach_Products));
+			OnCreated();
 		}
 		
-		private void detach_Comments(Comment entity)
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Providers_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Providers_ID
+		{
+			get
+			{
+				return this._Providers_ID;
+			}
+			set
+			{
+				if ((this._Providers_ID != value))
+				{
+					this.OnProviders_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Providers_ID = value;
+					this.SendPropertyChanged("Providers_ID");
+					this.OnProviders_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Providers_Name", DbType="NVarChar(50)")]
+		public string Providers_Name
+		{
+			get
+			{
+				return this._Providers_Name;
+			}
+			set
+			{
+				if ((this._Providers_Name != value))
+				{
+					this.OnProviders_NameChanging(value);
+					this.SendPropertyChanging();
+					this._Providers_Name = value;
+					this.SendPropertyChanged("Providers_Name");
+					this.OnProviders_NameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Provider_Product", Storage="_Products", ThisKey="Providers_ID", OtherKey="Providers_ID")]
+		public EntitySet<Product> Products
+		{
+			get
+			{
+				return this._Products;
+			}
+			set
+			{
+				this._Products.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Products(Product entity)
 		{
 			this.SendPropertyChanging();
-			entity.User = null;
+			entity.Provider = this;
+		}
+		
+		private void detach_Products(Product entity)
+		{
+			this.SendPropertyChanging();
+			entity.Provider = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TongTien")]
+	public partial class TongTien
+	{
+		
+		private int _Cart_ID;
+		
+		private System.Nullable<double> _gia;
+		
+		public TongTien()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_ID", DbType="Int NOT NULL")]
+		public int Cart_ID
+		{
+			get
+			{
+				return this._Cart_ID;
+			}
+			set
+			{
+				if ((this._Cart_ID != value))
+				{
+					this._Cart_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_gia", DbType="Float")]
+		public System.Nullable<double> gia
+		{
+			get
+			{
+				return this._gia;
+			}
+			set
+			{
+				if ((this._gia != value))
+				{
+					this._gia = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Doanhthu")]
+	public partial class Doanhthu
+	{
+		
+		private System.Nullable<double> _Sums;
+		
+		private System.Nullable<System.DateTime> _Date;
+		
+		public Doanhthu()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sums", DbType="Float")]
+		public System.Nullable<double> Sums
+		{
+			get
+			{
+				return this._Sums;
+			}
+			set
+			{
+				if ((this._Sums != value))
+				{
+					this._Sums = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Date
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this._Date = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DoanhThuBang")]
+	public partial class DoanhThuBang
+	{
+		
+		private System.Nullable<System.DateTime> _Cart_DateCreate;
+		
+		private System.Nullable<double> _Doanhthungay;
+		
+		public DoanhThuBang()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cart_DateCreate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Cart_DateCreate
+		{
+			get
+			{
+				return this._Cart_DateCreate;
+			}
+			set
+			{
+				if ((this._Cart_DateCreate != value))
+				{
+					this._Cart_DateCreate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Doanhthungay", DbType="Float")]
+		public System.Nullable<double> Doanhthungay
+		{
+			get
+			{
+				return this._Doanhthungay;
+			}
+			set
+			{
+				if ((this._Doanhthungay != value))
+				{
+					this._Doanhthungay = value;
+				}
+			}
 		}
 	}
 }

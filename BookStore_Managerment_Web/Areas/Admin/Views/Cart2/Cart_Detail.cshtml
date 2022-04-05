@@ -1,0 +1,126 @@
+﻿@model PagedList.IPagedList<BookStore_Managerment_Web.Models.Cart_Detail>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Cart_Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using BookStore_Managerment_Web.Models;
+@{
+    List<Product> sp = Session["SP"] as List<Product>;
+
+}
+<table class="table">
+    <tr>
+        <th>
+            Mã đơn hàng
+        </th>
+        <th>
+            Tên sản phẩm
+        </th>
+        <th>
+            Hình ảnh
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Giá
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Cart_ID)
+            </td>
+            @foreach (var itemsp in sp)
+            {
+                if (itemsp.Product_ID == item.Product_ID)
+                {
+                    <td>
+                        @itemsp.Product_Name
+                    </td>
+                }
+            }
+            @foreach (var itemsp in sp)
+            {
+                if (itemsp.Product_ID == item.Product_ID)
+                {
+                    <td>
+                        <img src="@itemsp.Product_Image" alt="images" height="100px" width="100px" />
+                    </td>
+                }
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Cart_Detail_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cart_Detail_Quantity)
+            </td>
+
+        </tr>
+    }
+
+</table>
+@if (@ViewBag.TongTien != null)
+{
+    <h3 style="margin-left: 80%; font-weight: bold; color: forestgreen;">Tổng tiền: @String.Format("{0:0,0}", ViewBag.TongTien) VND</h3>
+}
+else
+{
+    <h3 style="margin-left: 80%; font-weight: bold; color: forestgreen;">Tổng tiền: @String.Format("{0:0,0}", 0) VND</h3>
+}
+<p style="margin-left:80%;">  @Html.ActionLink("Duyệt đơn hàng", "Cart_Accept", "Cart2", new { id = @ViewBag.getid }, new { @class = "btn btn-success" })</p>
+<div>
+    <div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /  @Model.PageCount
+    </div>
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Cart_Detail", "Cart2", new { page = page }))
+    </div>
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+<style type="text/css">
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+        #mau-nut a:hover {
+            background-color: darkcyan;
+            color: snow;
+        }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var maxLength = 100;
+        $(".show-read-more").each(function () {
+            var myStr = $(this).text();
+            if ($.trim(myStr).length > maxLength) {
+                var newStr = myStr.substring(0, maxLength);
+                var removedStr = myStr.substring(maxLength, $.trim(myStr).length); $(this).empty().html(newStr);
+                $(this).append(' <a href="javascript:void(0);" class="read more">đọc tiếp...</a>');
+                $(this).append('<span class="more-text">' + removedStr + '</span>');
+            }
+        });
+        $(".read-more").click(function () {
+            $(this).siblings(".more-text").contents().unwrap();
+            $(this).remove();
+        });
+    });
+</script>
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>

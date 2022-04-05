@@ -18,7 +18,7 @@
 
 
     <div class="row">
-        <div class=" col-md-2 col-sm-1 " >
+        <div class=" col-md-2 col-sm-1 ">
             <h2 style="font-weight:400;text-transform:uppercase;margin-left:150px;width:100%;"> Đăng ký ngay</h2>
         </div>
     </div>
@@ -32,7 +32,7 @@
         </div>
     </div>
 
-    <div class="form-group" >
+    <div class="form-group">
         @Html.LabelFor(model => model.User_Phone, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-5">
             @Html.EditorFor(model => model.User_Phone, new { htmlAttributes = new { @class = "form-control" } })
@@ -50,16 +50,27 @@
         </div>
     </div>
 
-    <div class="form-group" >
-        @Html.LabelFor(model => model.User_Sex, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-5">
-            @Html.EditorFor(model => model.User_Sex, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-group">
+        <h4 class="control-label col-md-2"><strong>Giới tính:</strong></h4>
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.User_Sex, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User_Sex, "", new { @class = "text-danger" })*@
+            <div class="fhs-input-group">
+                <p style="margin-left:18%">@Html.RadioButton("CheckState", "nam", true) Nam </p>
+                <p style="margin-left:18%">@Html.RadioButton("CheckState", "nu") Nữ</p>
+                @*<input hidden="true" type="text" id="gender" name="gender" value="">*@
+                @*<div style="width: 42px;"></div>
+                    <div style="clear: both;"></div>
+                    <span class="fhs-input-icon fhs-textbox-alert"></span>*@
+            </div>
 
-            @Html.ValidationMessageFor(model => model.User_Sex, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group" >
+
+
+
+    <div class="form-group">
         @Html.LabelFor(model => model.User_Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-5">
             @Html.EditorFor(model => model.User_Birthday, new { htmlAttributes = new { @class = "form-control" } })
@@ -68,7 +79,7 @@
         </div>
     </div>
 
-    <div class="form-group" >
+    <div class="form-group">
         @Html.LabelFor(model => model.User_AccountName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-5">
             @Html.EditorFor(model => model.User_AccountName, new { htmlAttributes = new { @class = "form-control" } })
@@ -77,16 +88,21 @@
         </div>
     </div>
 
-    <div class="form-group" >
+    <div class="form-group">
         @Html.LabelFor(model => model.User_AccountPassword, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-5">
-            @Html.EditorFor(model => model.User_AccountPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.PasswordFor(model => model.User_AccountPassword, new { htmlAttributes = new { @class = "form-control" } })
             <span id="User_AccountPassword_Error"></span>
             @Html.ValidationMessageFor(model => model.User_AccountPassword, "", new { @class = "text-danger" })
         </div>
     </div>
+    <style>
+        input[type="password"] {
+            width: 100%;
+        }
+    </style>
 
-    <div class="form-group" >
+    <div class="form-group">
         <label class="control-label col-md-2" for="MatKhauXacNhan">
             Mật khẩu xác nhận:
         </label>
@@ -104,17 +120,17 @@
 
 
 
-        <div class="form-group" >
-            <div class=" col-md-offset-2">
-                <input type="submit" id="btnSubmit" value="Đăng ký" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <div class=" col-md-offset-2">
+            <input type="submit" id="btnSubmit" value="Đăng ký" class="btn btn-default" />
         </div>
+    </div>
 
-        <div class="form-group" >
-            <div class=" col-md-offset-2">
-                @Html.ActionLink("Trở lại", "Index", "Home")
-            </div>
+    <div class="form-group">
+        <div class=" col-md-offset-2">
+            @Html.ActionLink("Trở lại", "DangNhap", "User")
         </div>
+    </div>
 </div>
 }
 

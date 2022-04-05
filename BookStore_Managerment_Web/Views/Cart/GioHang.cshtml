@@ -41,7 +41,7 @@
                                 @using (Html.BeginForm("Capnhatgiohang", "Cart", new { @id = item.Product_ID }))
                                 {
                                     <td class="cart_product">
-                                        <a href=""><img src="@item.Product_Image" alt=""></a>
+                                        <a href=""><img src="@item.Product_Image" alt="" style="width:50px;"></a>
                                     </td>
                                     <td class="cart_description">
                                         <h4><a href="@Url.Action("Product_Detail", "Home", new { @product_id = item.Product_ID })">@item.Product_Name</a></h4>
@@ -88,7 +88,7 @@
                         <li>Phí ship: <span>Free</span></li>
                         <li>Tổng cộng: <span>@ViewBag.TongTien</span></li>
                     </ul>
-                    <a class="btn btn-default check_out" href="">Thanh toán</a>
+                    <a class="btn btn-default check_out" href="@Url.Action("DatHang","Cart")">Thanh toán</a>
                     <a class="btn btn-default check_out" href="@Url.Action("Xoatatcagiohang","Cart")">Làm trống giỏ hàng</a>
                 </div>
             </div>

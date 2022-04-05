@@ -1,0 +1,147 @@
+﻿@model PagedList.IPagedList<BookStore_Managerment_Web.Models.User>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm("Users", "Users", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        <label>Tìm kiếm  </label>
+        <input type="Text" class="form-control mx-sm-4" name="searching" placeholder="Nhập tên cần tìm">
+        <input type="submit" class="btn btn-danger" value="Tìm kiếm">
+    </div>
+    <hr />
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Tên khách hàng
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Giới tính
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.User_State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User_AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User_AccountPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User_Admin)
+            </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Users_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User_Email)
+            </td>
+            @if (item.User_Sex == false)
+            {
+                <td>
+                    Nam
+                </td>
+            }
+            else
+            {
+                <td>
+                    Nữ
+                </td>
+            }
+            <td>
+
+                @String.Format("{0:dd/MM/yyyy}", item.User_Birthday)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.User_State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_AccountName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_AccountPassword)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User_Admin)
+                </td>*@
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Users_ID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Users_ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Users_ID })
+                </td>*@
+        </tr>
+    }
+
+</table>
+<div>
+    <div>
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /  @Model.PageCount
+    </div>
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Users", "UnitCategory", new { page = page }))
+    </div>
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+<style type="text/css">
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+        #mau-nut a:hover {
+            background-color: darkcyan;
+            color: snow;
+        }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        var maxLength = 100;
+        $(".show-read-more").each(function () {
+            var myStr = $(this).text();
+            if ($.trim(myStr).length > maxLength) {
+                var newStr = myStr.substring(0, maxLength);
+                var removedStr = myStr.substring(maxLength, $.trim(myStr).length); $(this).empty().html(newStr);
+                $(this).append(' <a href="javascript:void(0);" class="read more">đọc tiếp...</a>');
+                $(this).append('<span class="more-text">' + removedStr + '</span>');
+            }
+        });
+        $(".read-more").click(function () {
+            $(this).siblings(".more-text").contents().unwrap();
+            $(this).remove();
+        });
+    });
+</script>
+<style>
+    .show-read-more .more-text {
+        display: none;
+    }
+</style>

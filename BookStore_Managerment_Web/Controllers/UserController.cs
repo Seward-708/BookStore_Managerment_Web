@@ -23,7 +23,9 @@ namespace BookStore_Managerment_Web.Controllers
             var hoten = collection["Users_Name"];
             var sdt = collection["User_Phone"];
             var email = collection["User_Email"];
-            var gioitinh = bool.Parse(collection["User_Sex"]);
+
+            var check = collection["CheckState"].ToString() == "nam" ? false : true;
+            var gioitinh = check;
             var ngaysinh = DateTime.Parse(collection["User_Birthday"]);
             var taikhoan = collection["User_AccountName"];
             var matkhau = collection["User_AccountPassword"];
@@ -54,7 +56,7 @@ namespace BookStore_Managerment_Web.Controllers
 
                         db.Users.InsertOnSubmit(kh);
                         db.SubmitChanges();
-                        MessageBox.Show("thành công");
+                        //MessageBox.Show("thành công");
                     }
                     return RedirectToAction("DangKy", "User");
                 }
@@ -71,20 +73,76 @@ namespace BookStore_Managerment_Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DangNhap(System.Web.Mvc.FormCollection collection)
         {
-            var tendangnhap = collection["User_AccountName"];
-            var matkhau = collection["User_AccountPassword"];
-            User kh = db.Users.SingleOrDefault(n => n.User_AccountName == tendangnhap && n.User_AccountPassword == matkhau);
-            if (kh != null)
+
+                var tendangnhap = collection["User_AccountName"];
+                var matkhau = collection["User_AccountPassword"];
+                User kh = db.Users.SingleOrDefault(n => n.User_AccountName == tendangnhap && n.User_AccountPassword == matkhau);
+                if (kh != null)
+                {
+                    ViewBag.ThongBao = "Chúc mừng đăng nhập thành công";
+                    Session["TaiKhoan"] = kh;
+                    if (kh.User_Admin == true)
+                        return RedirectToAction("Index", "Admin/Admin");
+                    else
+                        return RedirectToAction("EditInfor", "User");
+                }
+                else
+                {
+                    ViewBag.ThongBao = "Tên đăng nhập hoặc mật khẩu không đúng";
+                    return this.DangNhap();
+                }
+            }
+
+
+        public ActionResult DangXuat()
+        {
+            Session["TaiKhoan"] = null;
+            return RedirectToAction("DangNhap", "User");
+        }
+
+        public ActionResult EditInfor()
+        {
+            var user = Session["TaiKhoan"] as User;
+                var find = db.Users.Where(x => x.Users_ID == user.Users_ID).FirstOrDefault();
+                Session["CartTemp"] = db.Carts.Where(x => x.Users_ID == user.Users_ID).Take(5).ToList();
+                Session["Gia"] = db.TongTiens.ToList();
+                return View(find);
+
+        }
+        [HttpPost]
+        public ActionResult EditInfor(System.Web.Mvc.FormCollection collection)
+        {
+            var user = Session["TaiKhoan"] as User;
+            var find = db.Users.Where(x => x.Users_ID == user.Users_ID).FirstOrDefault();
+            var ten = collection["Users_Name"];
+            var sdt = collection["User_Phone"];
+            var email = collection["User_Email"];
+            var check = collection["CheckState"];
+            var ngaysinh = collection["User_Birthday"];
+            if (String.IsNullOrEmpty(ten) || String.IsNullOrEmpty(sdt) || String.IsNullOrEmpty(email) || String.IsNullOrEmpty(ngaysinh))
             {
-                ViewBag.ThongBao = "Chúc mừng đăng nhập thành công";
-                Session["TaiKhoan"] = kh;
-                return RedirectToAction("Index", "Home");
+                ViewBag.TB = "Yêu cầu nhập đầy đủ thông tin";
+                return this.EditInfor();
             }
             else
             {
-                ViewBag.ThongBao = "Tên đăng nhập hoặc mật khẩu không đúng";
-                return this.DangNhap();
+                find.Users_Name = ten.Trim();
+                find.User_Phone = sdt;
+                find.User_Email = email;
+                find.User_Birthday = DateTime.Parse(ngaysinh);
+                if (check == "nam")
+                {
+                    find.User_Sex = false;
+                }
+                else
+                {
+                    find.User_Sex = true;
+                }
+                UpdateModel(find);
+                db.SubmitChanges();
+
             }
+            return RedirectToAction("EditInfor", "User");
 
         }
     }

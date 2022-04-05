@@ -34,10 +34,10 @@
                                                 <div class="product-image-wrapper">
                                                     <div class="single-products">
                                                         <div class="productinfo text-center">
-                                                            <img src="@item.Product_Image" alt="" />
+                                                            <img src="@item.Product_Image" alt=""/>
                                                             <h2>@item.Product_SellPrice</h2>
                                                             <p>@item.Product_Name</p>
-                                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
+                                                            <a href="@Url.Action("Product_Detail","Home",new {@product_id = item.Product_ID })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem chi tiết</a>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -1,0 +1,45 @@
+﻿@model BookStore_Managerment_Web.Models.Category
+
+@{
+    ViewBag.Title = "CreateUnit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <p class="control-label col-md-2"> Tên đơn vị</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Category_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Category_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p style="margin-left:18%">@Html.RadioButton("CheckState", "choban", true) Hoạt động</p>
+            <p style="margin-left:18%">@Html.RadioButton("CheckState", "khongchoban") Không Hoạt động</p>
+        </div>
+        <div class="form-group">
+            <p style="margin-left:18%">@Html.RadioButton("CheckState1", "book", true) Sách</p>
+            <p style="margin-left:18%">@Html.RadioButton("CheckState1", "notbook") Văn phòng phẩm</p>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Trở về", "Category", "UnitCategory", "", new { @class = "btn btn-default" })
+</div>

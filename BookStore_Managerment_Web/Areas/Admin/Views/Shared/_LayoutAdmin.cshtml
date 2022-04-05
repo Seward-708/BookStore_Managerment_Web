@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="/Areas/ContentAdmin/Admin2.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <input type="checkbox" class="bx-menu" id="nav-toggle">
+
+    <div class="sidebar ">
+        <div class="sidebar-brand">
+            <h2>
+                <span class="lab la-accusoft logo"></span>
+                <span>
+                    <span class="logo">H</span>
+                    <span class="logo">T</span>
+                    <span class="logo">S</span>
+                </span>
+            </h2>
+        </div>
+
+        <ul class="nav-links">
+            <li>
+                <a href="/Admin/Admin/Index">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Trang Chủ</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Trang Chủ</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="">
+                        <i class='bx bx-collection'></i>
+                        <span class="link_name">Quản lý sản phẩm</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="">Quản lý sản phẩm</a></li>
+                    <li><a href="/Admin/Admin/Sach">Sách</a></li>
+                    <li><a href="/Admin/Admin/VPP">Văn phòng phẩm</a></li>
+
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="">
+                        <i class='bx bx-book-alt'></i>
+                        <span class="link_name">Quản lý danh mục</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="">Quản lý danh mục</a></li>
+                    <li><a href="/Admin/UnitCategory/Category">Quản lý thể loại</a></li>
+                    <li><a href="/Admin/UnitCategory/Unit">Quản lý đơn vị</a></li>
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="/Admin/Cart2/Cart">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Quản lý đơn hàng</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="/Admin/Cart2/Cart">Quản lý đơn hàng</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="">
+                        <i class='bx bx-plug'></i>
+                        <span class="link_name">Quản lý đối tác</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="">Quản lý đối tác</a></li>
+                    <li><a href="/Admin/Users/Users">Quản lý khách hàng</a></li>
+                    <li><a href="/Admin/Users/Providers">Quản lý nhà cung cấp</a></li>
+                    <li><a href="/Admin/Users/Publishers">Quản lý nhà xuất bản</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/Home/Index">
+                    <i class='bx bx-compass'></i>
+                    <span class="link_name">Về trang chủ</span>
+                </a>    
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="/Home/Index">Về trang chủ</a></li>
+                </ul>
+            </li>
+
+            <li>
+
+            </li>
+        </ul>
+
+        </ul>
+    </div>
+    </div>
+
+
+    <div class="main-contents">
+        <header style="background-color:white;">
+            <h2>
+                <label for="nav-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+                <span></span>
+            </h2>
+
+            @*<div class="search-wrappers">
+                    <span class="las la-search">
+                        <input type="search" placeholder="Nhập">
+                    </span>
+                </div>*@
+
+            @*<div class="user-wrapperss">
+                    <img src="ei.jpg" alt="avatar" width="40px" height="40px">
+                    <div>
+                        <h4>TienNguyen</h4>
+                        <small>TEST</small>
+                    </div>
+                </div>*@
+
+        </header>
+        <main style="margin-top:40px">
+            @RenderBody()
+        </main>
+    </div>
+
+
+
+    <script>
+        const list = document.querySelectorAll('.list');
+
+        list.forEach(item => {
+            item.onclick = () => {
+                list.forEach(item => item.classList.remove('active'));
+                item.classList.add('active');
+            }
+        })
+
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+            arrow[i].addEventListener("click", (e) => {
+                let arrowParent = e.target.parentElement.parentElement;
+                arrowParent.classList.toggle("showMenu");
+            });
+        }
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        console.log(sidebarBtn);
+        sidebarBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+        });
+        const lists = document.querySelectorAll('.logo')
+
+        var index = 0
+
+        setInterval((e) => {
+            lists.forEach((e) => { e.classList.remove('change-properties') })
+            lists[index].classList.add('change-properties')
+            index++
+            if (index == lists.length) { index = 0 }
+        }, 600)
+    </script>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @RenderSection("upload", required: false)
+</body>
+</html>

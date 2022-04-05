@@ -1,0 +1,231 @@
+﻿@model BookStore_Managerment_Web.Models.Product
+@{
+    ViewBag.Title = "CreateSach";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+
+}
+@using BookStore_Managerment_Web.Models;
+@{ 
+    
+        Author authors = (Author)Session["Authortemp"];
+        Book_Writter bw = (Book_Writter)Session["BWtemp"];
+  
+
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Tên sách</p>
+        <div class="col-md-10">
+
+            @Html.EditorFor(model => model.Product_Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Product_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Giá sách</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_SellPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Product_SellPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Số lượng</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Product_Quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Hình ảnh</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_Image, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+            @*@Html.ValidationMessageFor(model => model.Product_Image, "", new { @class = "text-danger" })*@
+
+            <input type="file" name="fileUpload" id="fileUpload" accept="image/*" style="display:none;" />
+            <input type="button" id="btnUpload" value="Chọn" class="btn btn-success" />
+            <img width="200" height="200" src="@Model.Product_Image" id="pictureUpload" />
+
+        </div>
+    </div>
+    @section upload
+{
+        <script>
+
+            $(function () {
+                $('#btnUpload').click(function () {
+                    $('#fileUpload').trigger('click');
+                });
+            });
+            $('#fileUpload').change(function () {
+                if (window.FormData !== undefined) {
+                    var fileUpload = $('#fileUpload').get(0);
+                    var files = fileUpload.files;
+                    var formData = new FormData();
+                    formData.append('file', files[0]);
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            url: '/Admin/Admin/ProcessUpload',
+                            contentType: false,
+                            processData: false,
+                            data: formData,
+                            success: function (urlImage) {
+                                $('#pictureUpload').attr('src', urlImage); $('#Product_Image').val(urlImage);
+                            },
+                            error: function (err) {
+                                alert('Error ', err.statusText);
+                            }
+                        });
+                }
+            });
+        </script>
+    }
+
+
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Trọng lượng(g)</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_Weight, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Product_Weight, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            <p class="control-label col-md-2" style="font-weight:bold;">Thể loại</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Category_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Category_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Thể loại</p>
+        <div class="col-md-10">
+            @Html.DropDownList("Category_ID", ViewBag.VbCategoryList as SelectList, "------- Chọn thể loại -------")
+            @*@Html.EditorFor(model => model.Category_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Category_ID, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Đơn vị</p>
+        <div class="col-md-10">
+            @Html.DropDownList("Unit_ID", ViewBag.VbUnit as SelectList, "-------- Chọn đơn vị --------")
+            @*@Html.EditorFor(model => model.Unit_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Unit_ID, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Nhà cung cấp</p>
+        <div class="col-md-10">
+            @Html.DropDownList("Providers_ID", ViewBag.VbProviders as SelectList, "------- Chọn nhà cung cấp -------")
+            @*@Html.EditorFor(model => model.Providers_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Providers_ID, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Nhà xuất bản</p>
+        <div class="col-md-10">
+            @Html.DropDownList("Publisher_ID", ViewBag.VbPublisher as SelectList, "------- Chọn nhà xuất bản -------")
+            @*@Html.EditorFor(model => model.Publisher_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Publisher_ID, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Tác giả</p>
+        <div class="col-md-10" >
+            <p >@authors.Author_Name</p>
+            @*<input type="text" name="tacgia" class="form-control" value="@authors.Author_Name">*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Năm viết</p>
+        <div class="col-md-10">
+            <input type="text" name="namviet" class="form-control" value="@bw.Year_Reprint">
+        </div>
+    </div>
+
+
+
+    @*<div class="form-group">
+            <p class="control-label col-md-2" style="font-weight:bold;">Tác giả</p>
+            <div class="col-md-10">
+                <input type="text" name="tacgia" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2" style="font-weight:bold;">Năm viết</p>
+            <div class="col-md-10">
+                <input type="text" name="namviet" class="form-control">
+            </div>
+        </div>*@
+    @*<div class="form-group">
+            <p class="control-label col-md-2" style="font-weight:bold;">Đơn vị</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Unit_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Unit_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <p class="control-label col-md-2" style="font-weight:bold;">Nhà cung cấp</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Providers_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Providers_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p class="control-label col-md-2" style="font-weight:bold;">Nhà xuất bản</p>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Publisher_ID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Publisher_ID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+
+    <div class="form-group">
+        @if (Model.Product_State == true)
+        {
+            <p style="margin-left:18%">@Html.RadioButton("CheckState", "choban", true) Cho bán </p>
+            <p style="margin-left:18%">@Html.RadioButton("CheckState", "khongchoban") Không cho bán</p>
+        }
+        else
+        {
+            <p style="margin-left:18%">@Html.RadioButton("CheckState", "choban") Cho bán </p>
+            <p style="margin-left:18%">@Html.RadioButton("CheckState", "khongchoban", true) Không cho bán</p>
+        }
+    </div>
+
+    <div class="form-group">
+        <p class="control-label col-md-2" style="font-weight:bold;">Mô tả</p>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Product_Infor, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Product_Infor, "", new { @class = "text-danger" })
+            @ViewBag.ThongBao
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Lưu" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Trở về", "Sach", "", new { @class = "btn btn-default" })
+</div>

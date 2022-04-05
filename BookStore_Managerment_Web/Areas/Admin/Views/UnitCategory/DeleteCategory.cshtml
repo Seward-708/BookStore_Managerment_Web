@@ -1,0 +1,65 @@
+﻿@model BookStore_Managerment_Web.Models.Category
+
+@{
+    ViewBag.Title = "DeleteUnit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            Tên thể loại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category_Name)
+        </dd>
+
+        <dt>
+            Trạng thái
+        </dt>
+        @if (Model.Category_State == true)
+        {
+            <dd>
+                Đang hoạt động
+            </dd>
+        }
+        else
+        {
+            <dd>
+                Ngừng hoạt động
+            </dd>
+
+        }
+        <dt>
+           Loại sản phẩm
+        </dt>
+        @if (Model.Category_isBook == true)
+        {
+            <dd>
+                Sách
+            </dd>
+        }
+        else
+        {
+            <dd>
+                Văn phòng phẩm
+            </dd>
+
+        }
+
+    </dl>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Xóa" class="btn btn-warning" />
+        @Html.ActionLink("Trở về", "Category", "", new { @class = "btn btn-default" })
+    </div>
+}
+
