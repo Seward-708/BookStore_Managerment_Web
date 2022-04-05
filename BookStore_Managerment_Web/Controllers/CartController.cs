@@ -92,7 +92,7 @@ namespace BookStore_Managerment_Web.Controllers
         public ActionResult GioHangPartial()
         {
             ViewBag.Tongsoluong = TongSoLuong();
-            ViewBag.Tongtien = TongTien();
+            ViewBag.TongTien = TongTien();
             ViewBag.Tongsoluongsanpham = TongSoLuongSanPham();
             return PartialView();
         }
@@ -148,7 +148,7 @@ namespace BookStore_Managerment_Web.Controllers
             }
             List<GioHang> lstGioHang = Laygiohang();
             ViewBag.Tongsoluong = TongSoLuong();
-            ViewBag.Tongtien = TongTien();
+            ViewBag.TongTien = TongTien();
             ViewBag.Tongsoluongsanpham = TongSoLuongSanPham();
             return View(lstGioHang);
         }

@@ -1,0 +1,21 @@
+﻿@using BookStore_Managerment_Web.Models
+@model List<Category>
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="category-tab">
+            <div class="col-sm-12 tab">
+                <ul class="nav nav-tabs ">
+                    <li class="active"><a href="#" data-toggle="tab">@item.Category_Name</a></li>
+                    <li><div class="more"><a href="#">Xem thêm</a></div></li>
+                </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="#">
+                        @Html.Action("category_items", "Home", new { @id = item.Category_ID })
+                    </div>
+                </div>
+                </div>
+}
+ }

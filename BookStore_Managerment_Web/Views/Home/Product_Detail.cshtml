@@ -18,18 +18,20 @@
         <div class="col-sm-7">
             <div class="product-information">
                 <h2>@Model.Product_Name</h2>
-                <span>
-                    <span>@Model.Product_SellPrice</span>
-                    <label>Số lượng:</label>
-                    <input type="text" value="1" name="txtSoLg" />
-                    <button type="button" class="btn btn-fefault cart">
-                        <a href="@Url.Action("ThemGioHang","Cart",new {@id = Model.Product_ID,@strURL = Request.Url.ToString() })">
-                            <i class="fa fa-shopping-cart"></i>
-                            Mua
-                        </a>
-
-                    </button>
-                </span>
+                @using (Html.BeginForm())
+                {
+                    <span>
+                        <span>@Model.Product_SellPrice</span>
+                        <label>Số lượng:</label>
+                        <input type="text" value="1" name="txtSoLg" />
+                        <button type="button" class="btn btn-fefault cart">
+                            <a href="@Url.Action("ThemGioHang","Cart",new {@id = Model.Product_ID,@strURL = Request.Url.ToString() })">
+                                <i class="fa fa-shopping-cart"></i>
+                                Mua
+                            </a>
+                        </button>
+                    </span>
+                }
                 @{
                     if (Model.Product_Quantity > 0)
                     {
@@ -50,11 +52,11 @@
         <div class="col-sm-12">
             <ul class="nav nav-tabs product_tab">
                 <li class="active"><a href="#details" data-toggle="tab">Mô tả sản phẩm</a></li>
-                <li ><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+
             </ul>
         </div>
         <div class="tab-content">
-            <div class="tab-pane fade" id="details">
+            <div class="tab-pane fade active in" id="details">
                 <h3><b>Thông tin sản phẩm</b></h3>
                 <p><b>Tên sản phẩm: </b>@Model.Product_Name</p>
                 <p><b>Trọng lượng (gr): </b>@Model.Product_Weight</p>

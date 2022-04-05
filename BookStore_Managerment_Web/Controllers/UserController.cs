@@ -77,7 +77,7 @@ namespace BookStore_Managerment_Web.Controllers
             if (kh != null)
             {
                 ViewBag.ThongBao = "Chúc mừng đăng nhập thành công";
-                Session["Account"] = kh;
+                Session["TaiKhoan"] = kh;
                 return RedirectToAction("Index", "Home");
             }
             else

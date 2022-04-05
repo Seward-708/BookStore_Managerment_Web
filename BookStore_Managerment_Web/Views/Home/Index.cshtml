@@ -71,7 +71,7 @@
                                     <div class="overlay-content">
 
                                         <p>Foreign Books</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
+                                        <a href="@Url.Action("Category_searchByName","Home",new {@category_name = "Foreign Books" })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +87,7 @@
                                 <div class="product-overlay">
                                     <div class="overlay-content">
                                         <p>Kinh tế</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
+                                        <a href="@Url.Action("Category_searchByName","Home",new {@category_name = "Kinh tế" })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,7 @@
                                 <div class="product-overlay">
                                     <div class="overlay-content">
                                         <p>Sách giáo khoa</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
+                                        <a href="@Url.Action("Category_searchByName","Home",new {@category_name = "Sách giáo khoa" })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                 <div class="product-overlay">
                                     <div class="overlay-content">
                                         <p>Thiếu nhi</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="@Url.Action("Category_searchByName","Home",new {@category_name = "Thiếu nhi" })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                                 <div class="product-overlay">
                                     <div class="overlay-content">
                                         <p>Văn học</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
+                                        <a href="@Url.Action("Category_searchByName","Home",new {@category_name = "Văn học" })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Xem thêm</a>
                                     </div>
                                 </div>
 
@@ -155,7 +155,7 @@
                                 <div class="product-overlay">
                                     <div class="overlay-content">
                                         <p>Văn phòng phẩm</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="@Url.Action("Category_searchByName","Home",new {@category_name = "Văn phòng phẩm" })" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -163,18 +163,7 @@
                     </div>
 
                 </div>
-
-
-                @Html.Action("Calculator_Partial", "Home")
-
-                @Html.Action("LightNovel_Partial", "Home")
-
-
-                @Html.Action("Toy_Partial", "Home")
-
-
-
-
+                @Html.Action("category", "Home")
             </div>
         </div>
     </div>

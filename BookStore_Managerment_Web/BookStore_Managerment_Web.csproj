@@ -221,14 +221,15 @@
     <Content Include="Views\Layout\UserLayout.cshtml" />
     <Content Include="Views\User\DangKy.cshtml" />
     <Content Include="Views\User\DangNhap.cshtml" />
-    <Content Include="Views\Home\Calculator_Partial.cshtml" />
-    <Content Include="Views\Home\LightNovel_Partial.cshtml" />
-    <Content Include="Views\Home\Toy_Partial.cshtml" />
     <Content Include="Views\Cart\GioHang.cshtml" />
     <Content Include="Views\Home\Category_List.cshtml" />
     <Content Include="Views\Home\Category_search.cshtml" />
     <Content Include="Views\Home\Product_Detail.cshtml" />
     <Content Include="Views\Home\Product_Detail_Recommend_Partial.cshtml" />
+    <Content Include="Views\Home\Category_searchByName.cshtml" />
+    <Content Include="Views\Cart\DatHang.cshtml" />
+    <Content Include="Views\Home\category.cshtml" />
+    <Content Include="Views\Home\category_items.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,10 +1,13 @@
-﻿@model IEnumerable<BookStore_Managerment_Web.Models.GioHang>
+﻿@using BookStore_Managerment_Web.Models;
+@model List<GioHang>
 
 
 @{
     ViewBag.Title = "GioHang";
     Layout = "~/Views/Layout/UserLayout.cshtml";
 }
+
+
 
 <section id="cart_items">
     <div class="container">
@@ -29,42 +32,42 @@
                 </thead>
                 @{
 
-                                <tbody>
-                                    @foreach (var item in Model)
-                                    {
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
 
 
-                                    <tr>
-                                        @using (Html.BeginForm("Capnhatgiohang", "Cart",new {@id = item.Product_ID }))
-                                        {
-                                            <td class="cart_product">
-                                                <a href=""><img src="@item.Product_Image" alt=""></a>
-                                            </td>
-                                            <td class="cart_description">
-                                                <h4><a href="@Url.Action("Product_Detail", "Home", new { @product_id = item.Product_ID })">@item.Product_Name</a></h4>
-                                            </td>
-                                            <td class="cart_price">
-                                                <p>@item.Cart_Detail_Price</p>
-                                            </td>
-                                            <td class="cart_quantity">
-                                                <div class="cart_quantity_button">
-                                                    <a class="cart_quantity_up" href="@Url.Action("TangSoLuong", "Cart", new { @id = item.Product_ID })"> + </a>
-                                                    <input class="cart_quantity_input" type="text" name="txtSoLg" id="txtSoLg" value="@item.Cart_Detail_Quantity" autocomplete="off" size="2">
-                                                    <a class="cart_quantity_down" href="@Url.Action("GiamSoLuong","Cart",new {@id = item.Product_ID })"> - </a>
-                                                </div>
-                                            </td>
-                                            <td class="cart_total">
-                                                <p class="cart_total_price">@item.TotalMoney</p>
-                                            </td>
-                                            <td class="cart_delete">
-                                                <a class="cart_quantity_delete" href="@Url.Action("Xoagiohang","Cart", new {@id = item.Product_ID })"><i class="fa fa-times"></i></a>
-                                            </td>
-                                            <td><input type="submit" value="Cập nhật số lượng" class="btn btn-success" /></td>
-                                        }
-                                    </tr>
-                                    }
+                            <tr>
+                                @using (Html.BeginForm("Capnhatgiohang", "Cart", new { @id = item.Product_ID }))
+                                {
+                                    <td class="cart_product">
+                                        <a href=""><img src="@item.Product_Image" alt=""></a>
+                                    </td>
+                                    <td class="cart_description">
+                                        <h4><a href="@Url.Action("Product_Detail", "Home", new { @product_id = item.Product_ID })">@item.Product_Name</a></h4>
+                                    </td>
+                                    <td class="cart_price">
+                                        <p>@item.Cart_Detail_Price</p>
+                                    </td>
+                                    <td class="cart_quantity">
+                                        <div class="cart_quantity_button">
+                                            <a class="cart_quantity_up" href="@Url.Action("TangSoLuong", "Cart", new { @id = item.Product_ID })"> + </a>
+                                            <input class="cart_quantity_input" type="text" name="txtSoLg" id="txtSoLg" value="@item.Cart_Detail_Quantity" autocomplete="off" size="2">
+                                            <a class="cart_quantity_down" href="@Url.Action("GiamSoLuong","Cart",new {@id = item.Product_ID })"> - </a>
+                                        </div>
+                                    </td>
+                                    <td class="cart_total">
+                                        <p class="cart_total_price">@item.TotalMoney</p>
+                                    </td>
+                                    <td class="cart_delete">
+                                        <a class="cart_quantity_delete" href="@Url.Action("Xoagiohang","Cart", new {@id = item.Product_ID })"><i class="fa fa-times"></i></a>
+                                    </td>
+                                    <td><input type="submit" value="Cập nhật số lượng" class="btn btn-success" /></td>
+                                }
+                            </tr>
+                        }
 
-                                </tbody>
+                    </tbody>
 
                 }
             </table>
@@ -81,15 +84,57 @@
             <div class="col-sm-6">
                 <div class="total_area">
                     <ul>
-                        <li>Thành tiền: <span>@ViewBag.Tongtien</span></li>
+                        <li>Thành tiền: <span>@ViewBag.TongTien</span></li>
                         <li>Phí ship: <span>Free</span></li>
-                        <li>Tổng cộng: <span>@ViewBag.Tongtien</span></li>
+                        <li>Tổng cộng: <span>@ViewBag.TongTien</span></li>
                     </ul>
                     <a class="btn btn-default check_out" href="">Thanh toán</a>
-                    <a class="btn btn-default check_out" href="@Html.Action("Xoagiohang","Cart")">Làm trống giỏ hàng</a>
+                    <a class="btn btn-default check_out" href="@Url.Action("Xoatatcagiohang","Cart")">Làm trống giỏ hàng</a>
                 </div>
             </div>
         </div>
     </div>
 </section><!--/#do_action-->
-
+@using BookStore_Managerment_Web.Models
+<h2 style="text-align:center;">Thông tin đặt hàng</h2>
+@{
+    KhachHang kh = (KhachHang)Session["TaiKhoan"];
+}
+<table align="center">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <tr style="height:40px;">
+            <td>Họ tên khách hàng: </td>
+            <td style="font-weight:bold;">@kh.hoten</td>
+        </tr>
+        <tr style="height:40px;">
+            <td>Email: </td>
+            <td style="font-weight:bold;">@kh.email</td>
+        </tr>
+        <tr style="height:40px;">
+            <td>Địa chỉ: </td>
+            <td style="font-weight:bold">@kh.diachi</td>
+        </tr>
+        <tr style="height:40px;">
+            <td>Điện thoại: </td>
+            <td style="font-weight:bold;">@kh.dienthoai</td>
+        </tr>
+        <tr style="height:40px;">
+            <td>Ngày đặt: </td>
+            <td style="font-weight:bold;">@DateTime.Now.ToShortDateString()</td>
+        </tr>
+        <tr style="height:40px;">
+            <td>Ngày giao: </td>
+            <td style="font-weight:bold;">
+                <input type="date" name="NgayGiao" />
+            </td>
+        </tr>
+        <tr style="height:40px;">
+            <td></td>
+            <td style="font-weight:bold;">
+                <input type="submit" value="Xác nhận" class="btn btn-success" />
+            </td>
+        </tr>
+    }
+</table>

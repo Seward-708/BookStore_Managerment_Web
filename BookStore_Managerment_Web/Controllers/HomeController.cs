@@ -18,22 +18,33 @@ namespace BookStore_Managerment_Web.Controllers
             return View();
         }
 
-        //thêm where danh mục là máy tính lấy ngẫu nhiên
-        public PartialViewResult Calculator_Partial() {
-            return PartialView(db.Products.ToList());
+
+
+
+        public PartialViewResult category()
+        {
+            List<Category> lst = new List<Category>();
+            foreach (var item in db.Categories)
+            {
+                if (db.Products.Where(p => p.Category_ID == item.Category_ID).Count() != 0)
+                    lst.Add(item);
+            }
+            return PartialView(lst);
         }
 
-        //them where danh mục la light novel
-        public PartialViewResult LightNovel_Partial()
+        public PartialViewResult category_items(int id)
         {
-            return PartialView(db.Products.ToList());
+            List<Product> lst = new List<Product>();
+            foreach (var item in db.Products)
+            {
+                if (item.Category_ID == id)
+                    lst.Add(item);
+            }
+            return PartialView(lst);
         }
 
-        //thêm where danh mục là đồ chơi
-        public PartialViewResult Toy_Partial()
-        {
-            return PartialView(db.Products.ToList());
-        }
+
+
 
         public PartialViewResult Category_List()
         {
@@ -43,7 +54,12 @@ namespace BookStore_Managerment_Web.Controllers
 
         public ActionResult Category_search(int category_id) {
             return View(db.Products.Where(p => (p.Category_ID == category_id) && (p.Product_State == true)).ToList());
-        } 
+        }
+
+        public ActionResult Category_searchByName(string category_name)
+        {
+            return View(db.Products.Where(p => (p.Category.Category_Name == category_name) && (p.Product_State == true)).ToList());
+        }
 
         public ActionResult Product_Detail(int product_id)
         {
