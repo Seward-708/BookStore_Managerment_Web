@@ -120,7 +120,7 @@
                     Tổng tiền
                 </th>
 
-
+                <th></th>
                 <th></th>
             </tr>
 
@@ -166,6 +166,18 @@
                             </td>
                         }
                     }
+                <td>
+                    @{
+                        if (item.Cart_State == true)
+                        {
+                            @Html.ActionLink("Hủy đơn hàng", "CancelOrder", "User", new { @id = item.Cart_ID }, new { @class = "btn btn-default",@OnClick = "return confirm('Bạn muốn hủy đơn hàng này?');",@id="cancelOrder" })
+                        }   
+                        else
+                        {
+                            @Html.ActionLink("Mua lại", "DisCancelOrder", "User", new { @id = item.Cart_ID }, new { @class = "btn btn-warning", @OnClick = "return confirm('Bạn muốn mua lại đơn hàng này?');", @id = "reOrder" })
+                        }
+                    }
+                </td>
                 </tr>
             }
 
@@ -198,3 +210,9 @@
 <div class="col-sm-offset-5" style="margin-top:40px;margin-bottom:40px;">
     <a href="@Url.Action("DangXuat","User")"><button class="btn btn-warning">Đăng xuất</button></a>
 </div>
+
+<script type="text/javascript">
+    $('#cancelOrder').click(function () {
+        alert("Thành công!");
+    });
+</script>

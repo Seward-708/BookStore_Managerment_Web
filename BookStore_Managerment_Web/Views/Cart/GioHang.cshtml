@@ -52,7 +52,8 @@
                                     <td class="cart_quantity">
                                         <div class="cart_quantity_button">
                                             <a class="cart_quantity_up" href="@Url.Action("TangSoLuong", "Cart", new { @id = item.Product_ID })"> + </a>
-                                            <input class="cart_quantity_input" type="text" name="txtSoLg" id="txtSoLg" value="@item.Cart_Detail_Quantity" autocomplete="off" size="2">
+                                            <input class="cart_quantity_input" type="text" name="txtSoLg" id="txtSoLg" value="@item.Cart_Detail_Quantity" min="1" autocomplete="off" size="2" onchange="myFunction(this.value,@item.Product_Quantity_Instock)">
+
                                             <a class="cart_quantity_down" href="@Url.Action("GiamSoLuong","Cart",new {@id = item.Product_ID })"> - </a>
                                         </div>
                                     </td>
@@ -95,3 +96,20 @@
         </div>
     </div>
 </section><!--/#do_action-->
+
+<script src="~/Content/javascript/js/jquery.js"></script>
+<script type="text/javascript">
+
+    function myFunction(val1,val2) {
+        if (val1 > val2) {
+            alert("Số lượng sách còn lại không đủ!\n(Số lượng sẽ đặt lại 1)");
+            $('#txtSoLg').val(1);
+        }
+        if (val1 <= 0) {
+            alert("Số lượng sách phải lớn hơn hoặc bằng 0!\n(Số lượng sẽ đặt lại 1)");
+            $('#txtSoLg').val(1);
+        }
+    }
+
+</script>
+

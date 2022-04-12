@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
+using System.Web.UI;
 using System.Windows.Forms;
 using BookStore_Managerment_Web.Models;
 
@@ -12,6 +14,8 @@ namespace BookStore_Managerment_Web.Controllers
     public class UserController : Controller
     {
         BookStoreDataContext db = new BookStoreDataContext();
+        public static int OTP;
+        public static User Account;
         [HttpGet]
         public ActionResult DangKy()
         {
@@ -30,6 +34,13 @@ namespace BookStore_Managerment_Web.Controllers
             var taikhoan = collection["User_AccountName"];
             var matkhau = collection["User_AccountPassword"];
             var matkhau_xacnhan = collection["User_AccountPassword_authen"];
+            if(db.Users.Where(p=>p.User_Email == email).Count() != 0)
+            {
+                ViewBag.ThongBao = "Email này đã được sử dụng để đăng ký";
+                return this.DangKy();
+            }
+
+
             if (string.IsNullOrEmpty(matkhau_xacnhan))
             {
                 ViewData["NhapMKXN"] = "Phải nhập mật khẩu xác nhận!";
@@ -91,7 +102,8 @@ namespace BookStore_Managerment_Web.Controllers
                     ViewBag.ThongBao = "Tên đăng nhập hoặc mật khẩu không đúng";
                     return this.DangNhap();
                 }
-            }
+
+        }
 
 
         public ActionResult DangXuat()
@@ -145,5 +157,141 @@ namespace BookStore_Managerment_Web.Controllers
             return RedirectToAction("EditInfor", "User");
 
         }
+        
+        [HttpGet]
+        public  ActionResult QuenMatKhau()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult QuenMatKhau(System.Web.Mvc.FormCollection collection)
+        {
+            var email = collection["User_Email"];
+
+            Account = db.Users.Where(p => p.User_Email == email).FirstOrDefault();
+            if (Account == null)
+            {
+                ViewBag.ThongBao = "Email này chưa được dùng để đăng ký!";
+                return this.QuenMatKhau();
+            }
+            else
+            {
+                if (email.Contains("@gmail.com"))
+                {
+                    Random rand = new Random();
+                    OTP = rand.Next(100000, 999999);
+                    mail(email);
+                }
+                else
+                {
+                    ViewBag.ThongBao = "Vui lòng nhập đúng định dạng email";
+                    return this.QuenMatKhau();
+                }
+            }
+            return RedirectToAction("OTP_Assign");
+        }
+
+        [HttpGet]
+        public ActionResult OTP_Assign()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult OTP_Assign(System.Web.Mvc.FormCollection collection)
+        {
+            var otp = collection["Users_Name"];
+            int otp_code;
+            if(!int.TryParse(otp,out otp_code))
+            {
+                ViewBag.ThongBao = "Vui lòng nhập OTP";
+            }
+            else
+            {
+                if (otp_code != OTP)
+                {
+                    ViewBag.ThongBao = "OTP chưa chính xác !";
+                    return this.OTP_Assign();
+                }
+            }
+            return RedirectToAction("NewPassword");
+            
+        }
+
+
+        [HttpGet]
+        public ActionResult NewPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult NewPassword(System.Web.Mvc.FormCollection collection)
+        {
+            var password = collection["User_AccountPassword"];
+            var repassword = collection["Users_Name"];
+
+            if (string.Compare(password, repassword) != 0)
+            {
+                ViewBag.ThongBao = "Mật khẩu nhập lại phải giống nhau!";
+                return this.NewPassword();
+            }
+            var temp = db.Users.Where(p => p.Users_ID == Account.Users_ID).FirstOrDefault();
+            temp.User_AccountPassword = password;
+            UpdateModel(temp);
+            db.SubmitChanges();
+            return RedirectToAction("DangNhap");
+        }
+
+
+        public void mail(string Receive_Email)
+        {
+            Random rnd = new Random();
+            const string p = "123123asD";
+
+
+            MailMessage message = new MailMessage();
+            SmtpClient smtp = new SmtpClient();
+
+            message.From = new MailAddress("tiennguyennaraka@gmail.com");
+
+            //Enter your email blow and also change in database too
+
+            message.To.Add(new MailAddress(Receive_Email));
+            message.Subject = "Mã xác nhận tài khoản";
+            message.Body = "Đây là mã xác nhận của bạn: " + OTP + "\nXin cám ơn!";
+
+            smtp.Port = 587;
+            smtp.Host = "smtp.gmail.com";
+            smtp.EnableSsl = true;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("tiennguyennaraka@gmail.com", p);
+            smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.Send(message);
+        }
+
+
+        public ActionResult CancelOrder(int id)
+        {
+            Cart cart = db.Carts.FirstOrDefault(p => p.Cart_ID == id);
+            cart.Cart_State = false;
+            cart.Cart_Delivery_State = null;
+                    UpdateModel(cart);
+                    db.SubmitChanges();            
+            return RedirectToAction("EditInfor");
+        }
+
+        public ActionResult DisCancelOrder(int id)
+        {
+            Cart cart = db.Carts.FirstOrDefault(p => p.Cart_ID == id);
+            if(cart.Cart_State == false)
+            {
+                cart.Cart_State = true;
+                    UpdateModel(cart);
+                    db.SubmitChanges();
+            }
+            return RedirectToAction("EditInfor");
+        }
+
+        
+
     }
 }

@@ -1,0 +1,36 @@
+﻿@model BookStore_Managerment_Web.Models.User
+
+@{
+    ViewBag.Title = "QuenMatKhau";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+<h2 class="col-md-offset-2" style="text-transform:uppercase;">Quên mật khẩu</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" >
+            @Html.LabelFor(model => model.User_Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="width:700px;">
+                @Html.EditorFor(model => model.User_Email, new { htmlAttributes = new { @class = "form-control" } })
+                <span id="User_Email_Error">@ViewBag.ThongBao</span>
+                @Html.ValidationMessageFor(model => model.User_Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Gửi mã" name="btnSubmit" id="btnSubmit" class="btn btn-default" onclick="alert('Đã gửi email xác nhận ')" />
+            </div>
+        </div>
+    </div>
+}
+
+<div style="margin-bottom:400px;" class="col-md-offset-2">
+    @Html.ActionLink("Trở lại", "DangNhap","User")
+</div>

@@ -1,0 +1,44 @@
+﻿@model BookStore_Managerment_Web.Models.User
+
+@{
+    ViewBag.Title = "OTP_Assign";
+    Layout = "~/Views/Layout/UserLayout.cshtml";
+}
+
+<h2>MÃ XÁC NHẬN</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <h4 class="control-label col-md-2"><strong>Mã xác nhận:</strong></h4>
+        <div class="col-md-10">
+            @*@Html.EditorFor(model => model.User_Sex, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User_Sex, "", new { @class = "text-danger" })*@
+            <div class="fhs-input-group">
+                @Html.EditorFor(model => model.Users_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @*<input hidden="true" type="text" id="gender" name="gender" value="">*@
+                @*<div style="width: 42px;"></div>
+        <div style="clear: both;"></div>
+        <span class="fhs-input-icon fhs-textbox-alert"></span>*@
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Xác nhận" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div style="margin-bottom:400px;" class="col-md-offset-2">
+    @Html.ActionLink("Trở lại", "DangNhap", "User")
+</div>

@@ -12,6 +12,7 @@ namespace BookStore_Managerment_Web.Models
     {
         BookStoreDataContext db = new BookStoreDataContext();
 
+        public int Product_Quantity_Instock { get; set; }
         public int Product_ID { get; set; }
 
         [Display(Name = "Tên sản phẩm")]
@@ -40,6 +41,7 @@ namespace BookStore_Managerment_Web.Models
             Product_Image = sach.Product_Image;
             Cart_Detail_Price = double.Parse(sach.Product_SellPrice.ToString());
             Cart_Detail_Quantity = 1;
+            Product_Quantity_Instock = (int)db.Products.Where(p => p.Product_ID == id).Select(p=>p.Product_Quantity).FirstOrDefault();
 
         }
     }
